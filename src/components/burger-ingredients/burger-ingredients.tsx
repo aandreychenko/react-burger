@@ -19,13 +19,9 @@ export const BurgerIngredients = ({
   const [currentIngredient, setCurrentIngredient] = useState<TIngredient | null>(null);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  const setIngredient = useCallback(
-    () =>
-      (ingredient: TIngredient): void => {
-        setCurrentIngredient(ingredient);
-      },
-    []
-  );
+  const setIngredient = (ingredient: TIngredient): void => {
+    setCurrentIngredient(ingredient);
+  };
 
   const clearIngredient = useCallback(() => {
     setCurrentIngredient(null);
@@ -77,7 +73,9 @@ export const BurgerIngredients = ({
       />
       {currentIngredient && (
         <Modal title={'Детали ингредиента'} onClose={clearIngredient}>
-          <IngredientDetails ingredient={currentIngredient} />
+          <div className={'pb-15'}>
+            <IngredientDetails ingredient={currentIngredient} />
+          </div>
         </Modal>
       )}
     </section>

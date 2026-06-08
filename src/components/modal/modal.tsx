@@ -42,7 +42,7 @@ function Modal({ title, onClose, children }: TModalProps): React.ReactPortal | n
           <div className={styles.overlay} onClick={onClose} />
 
           <div
-            className={`${styles.modal} pt-10 pr-10 pl-10 pb-15`}
+            className={`${styles.modal} pt-10 pr-10 pl-10`}
             onClick={handleContentClick}
           >
             <div className={styles.headerContainer}>
