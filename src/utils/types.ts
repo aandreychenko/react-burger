@@ -1,4 +1,6 @@
-export type TIngredient = {
+import type { INGREDIENT_CATEGORY } from '@utils/consts.ts';
+
+type TIngredient = {
   _id: string;
   name: string;
   type: string;
@@ -12,3 +14,12 @@ export type TIngredient = {
   image_mobile: string;
   __v: number;
 };
+
+type IIngredientsResponse = {
+  success: boolean;
+  data: TIngredient[];
+};
+
+type TIngredientCategory = (typeof INGREDIENT_CATEGORY)[number];
+
+export type { TIngredient, IIngredientsResponse, TIngredientCategory };

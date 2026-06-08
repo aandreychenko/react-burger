@@ -34,5 +34,6 @@
 		'@services': path.resolve(__dirname, './src/utils'),
 		'@pages': path.resolve(__dirname, './src/pages'),
 		'@utils': path.resolve(__dirname, './src/utils'),
+		'@static': path.resolve(__dirname, './src/static'),
 	},
 ```
