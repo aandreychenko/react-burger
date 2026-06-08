@@ -1,4 +1,4 @@
-import DoneIcon from '@/assets/done-icon.svg';
+import DoneIcon from '@/assets/images/done-icon.svg';
 
 import styles from './order-details.module.css';
 

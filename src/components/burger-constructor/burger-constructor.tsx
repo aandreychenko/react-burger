@@ -14,11 +14,13 @@ import type { TIngredient } from '@utils/types';
 
 import styles from './burger-constructor.module.css';
 
+type TBurgerConstructorProps = {
+  ingredients: TIngredient[];
+};
+
 export const BurgerConstructor = ({
   ingredients,
-}: {
-  ingredients: TIngredient[];
-}): React.JSX.Element => {
+}: TBurgerConstructorProps): React.JSX.Element => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   const openModal = (): void => {

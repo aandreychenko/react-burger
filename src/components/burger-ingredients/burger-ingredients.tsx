@@ -10,11 +10,13 @@ import type { TIngredient, TIngredientCategory } from '@utils/types';
 
 import styles from './burger-ingredients.module.css';
 
+type TBurgerIngredientsProps = {
+  ingredients: TIngredient[];
+};
+
 export const BurgerIngredients = ({
   ingredients,
-}: {
-  ingredients: TIngredient[];
-}): React.JSX.Element => {
+}: TBurgerIngredientsProps): React.JSX.Element => {
   const [tab, setTab] = useState<TIngredientCategory>('bun');
   const [currentIngredient, setCurrentIngredient] = useState<TIngredient | null>(null);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
