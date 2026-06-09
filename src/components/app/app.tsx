@@ -23,11 +23,11 @@ export const App = (): React.JSX.Element => {
         const data = await getIngredients();
 
         setIngredients(data);
-        setIsLoading(false);
       } catch (error) {
         console.error(error);
 
         setIsError(true);
+      } finally {
         setIsLoading(false);
       }
     };
