@@ -3,11 +3,10 @@ import {
   ConstructorElement,
   DragIcon,
 } from '@krgaa/react-developer-burger-ui-components';
-import { useState } from 'react';
 
-import Modal from '@components/modal/modal.tsx';
 import OrderDetails from '@components/order-details/order-details.tsx';
 import Price from '@components/price/price.tsx';
+import useModal from '@hooks/use-modal.ts';
 import { BUN } from '@utils/ingredients.ts';
 
 import type { TIngredient } from '@utils/types';
@@ -21,15 +20,7 @@ type TBurgerConstructorProps = {
 export const BurgerConstructor = ({
   ingredients,
 }: TBurgerConstructorProps): React.JSX.Element => {
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const openModal = (): void => {
-    setIsShowModal(true);
-  };
-
-  const closeModal = (): void => {
-    setIsShowModal(false);
-  };
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const handleCloseElement = (): void => {
     console.log('close element');
@@ -76,11 +67,7 @@ export const BurgerConstructor = ({
           Оформить заказ
         </Button>
       </div>
-      {isShowModal && (
-        <Modal onClose={closeModal}>
-          <OrderDetails />
-        </Modal>
-      )}
+      {isModalOpen && <OrderDetails onClose={closeModal} />}
     </section>
   );
 };

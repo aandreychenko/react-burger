@@ -3,7 +3,7 @@ import { useState, useRef, useCallback } from 'react';
 
 import IngredientDetails from '@components/ingredient-details/ingredient-details.tsx';
 import IngredientsList from '@components/ingredients-list/ingredients-list.tsx';
-import Modal from '@components/modal/modal.tsx';
+import useModal from '@hooks/use-modal.ts';
 import { INGREDIENT_CATEGORY } from '@utils/consts.ts';
 
 import type { TIngredient, TIngredientCategory } from '@utils/types';
@@ -20,12 +20,15 @@ export const BurgerIngredients = ({
   const [tab, setTab] = useState<TIngredientCategory>('bun');
   const [currentIngredient, setCurrentIngredient] = useState<TIngredient | null>(null);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const { isModalOpen, openModal, closeModal } = useModal();
 
-  const setIngredient = (ingredient: TIngredient): void => {
+  const handleOpenModal = (ingredient: TIngredient): void => {
     setCurrentIngredient(ingredient);
+    openModal();
   };
 
-  const clearIngredient = useCallback(() => {
+  const handleCloseModal = useCallback(() => {
+    closeModal();
     setCurrentIngredient(null);
   }, []);
 
@@ -71,14 +74,10 @@ export const BurgerIngredients = ({
       <IngredientsList
         ingredients={ingredients}
         refs={categoryRefs}
-        whenClick={setIngredient}
+        whenClick={handleOpenModal}
       />
-      {currentIngredient && (
-        <Modal title={'Детали ингредиента'} onClose={clearIngredient}>
-          <div className={'pb-15'}>
-            <IngredientDetails ingredient={currentIngredient} />
-          </div>
-        </Modal>
+      {currentIngredient && isModalOpen && (
+        <IngredientDetails ingredient={currentIngredient} onClose={handleCloseModal} />
       )}
     </section>
   );
