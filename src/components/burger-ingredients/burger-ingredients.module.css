@@ -2,8 +2,14 @@
   display: flex;
   flex-direction: column;
   max-width: 600px;
+  height: 100%;
+  min-height: 0;
   color: var(--text-primary-color);
   font-family: 'Jet Brains Mono', serif;
+}
+
+.title {
+  max-width: 100%;
 }
 
 .menu {
