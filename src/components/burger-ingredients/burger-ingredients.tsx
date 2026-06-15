@@ -1,5 +1,5 @@
 import { Tab } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 import IngredientDetails from '@components/ingredient-details/ingredient-details.tsx';
 import IngredientsList from '@components/ingredients-list/ingredients-list.tsx';
@@ -20,6 +20,8 @@ export const BurgerIngredients = ({
   const [tab, setTab] = useState<TIngredientCategory>('bun');
   const [currentIngredient, setCurrentIngredient] = useState<TIngredient | null>(null);
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const listContainerRef = useRef<HTMLDivElement | null>(null);
+  const isClickScrolling = useRef<boolean>(false);
   const { isModalOpen, openModal, closeModal } = useModal();
 
   const handleOpenModal = (ingredient: TIngredient): void => {
@@ -32,6 +34,32 @@ export const BurgerIngredients = ({
     setCurrentIngredient(null);
   }, []);
 
+  const handleScroll = (): void => {
+    if (isClickScrolling.current || !listContainerRef.current) return;
+
+    const paddingTop = 40;
+    const containerTop =
+      listContainerRef.current.getBoundingClientRect().top + paddingTop;
+    let closestTab: TIngredientCategory = 'bun';
+    let minDistance = Infinity;
+
+    Object.entries(categoryRefs.current).forEach(([categoryType, categoryElement]) => {
+      if (!categoryElement) return;
+
+      const categoryTop = categoryElement.getBoundingClientRect().top;
+      const distance = Math.abs(categoryTop - containerTop);
+
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestTab = categoryType as TIngredientCategory;
+      }
+    });
+
+    if (closestTab !== tab) {
+      setTab(closestTab);
+    }
+  };
+
   const isTab = function (value: string): value is TIngredientCategory {
     return INGREDIENT_CATEGORY.includes(value as TIngredientCategory);
   };
@@ -43,9 +71,22 @@ export const BurgerIngredients = ({
 
     const element = categoryRefs.current[tab];
     if (element) {
+      isClickScrolling.current = true;
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
+  useEffect(() => {
+    const container = listContainerRef.current;
+    if (!container) return;
+
+    const handleScrollEnd = (): void => {
+      isClickScrolling.current = false;
+    };
+
+    container.addEventListener('scrollend', handleScrollEnd);
+    return (): void => container.removeEventListener('scrollend', handleScrollEnd);
+  }, []);
 
   return (
     <section className={styles.burger_ingredients}>
@@ -73,7 +114,9 @@ export const BurgerIngredients = ({
       </nav>
       <IngredientsList
         ingredients={ingredients}
-        refs={categoryRefs}
+        categoryRefs={categoryRefs}
+        containerRef={listContainerRef}
+        whenScroll={handleScroll}
         whenClick={handleOpenModal}
       />
       {currentIngredient && isModalOpen && (

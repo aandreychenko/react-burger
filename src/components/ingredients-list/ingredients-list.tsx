@@ -9,13 +9,17 @@ import styles from './ingridients-list.module.css';
 
 type TIngredientsListProps = {
   ingredients: TIngredient[];
-  refs: RefObject<Record<string, HTMLDivElement | null>>;
+  categoryRefs: RefObject<Record<string, HTMLDivElement | null>>;
+  containerRef: RefObject<HTMLDivElement | null>;
+  whenScroll: () => void;
   whenClick: (ingredient: TIngredient) => void;
 };
 
 function IngredientsList({
   ingredients,
-  refs,
+  categoryRefs,
+  containerRef,
+  whenScroll,
   whenClick,
 }: TIngredientsListProps): React.JSX.Element {
   const ingredientsByType = useMemo(() => {
@@ -30,13 +34,17 @@ function IngredientsList({
   }, [ingredients]);
 
   return (
-    <div className={`${styles.list} custom-scroll pb-6`}>
+    <div
+      className={`${styles.list} custom-scroll pb-6`}
+      ref={containerRef}
+      onScroll={whenScroll}
+    >
       {Object.entries(ingredientsByType).map(([type, list], index) => (
         <div
           key={index}
           ref={(element) => {
-            if (refs.current) {
-              refs.current[type] = element;
+            if (categoryRefs.current) {
+              categoryRefs.current[type] = element;
             }
           }}
         >
