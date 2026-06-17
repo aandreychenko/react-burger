@@ -6,8 +6,12 @@ import {
 
 import OrderDetails from '@components/order-details/order-details.tsx';
 import Price from '@components/price/price.tsx';
-import useModal from '@hooks/use-modal.ts';
+import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
+import { createOrder } from '@services/store/modal/actions.ts';
+import { closeAllModals, getOrderDetails } from '@services/store/modal/slice.ts';
 import { BUN } from '@utils/ingredients.ts';
+
+import Modal from '../modal/modal';
 
 import type { TIngredient } from '@utils/types';
 
@@ -20,10 +24,22 @@ type TBurgerConstructorProps = {
 export const BurgerConstructor = ({
   ingredients,
 }: TBurgerConstructorProps): React.JSX.Element => {
-  const { isModalOpen, openModal, closeModal } = useModal();
+  const { isOpen } = useAppSelector(getOrderDetails);
+  const dispatch = useAppDispatch();
 
-  const handleCloseElement = (): void => {
-    console.log('close element');
+  const openModal = (): void => {
+    const orderData = [
+      '692889f16bf770001bfeb4cc',
+      '692889f16bf770001bfeb4d6',
+      '692889f16bf770001bfeb4d7',
+      '692889f16bf770001bfeb4cc',
+    ];
+
+    void dispatch(createOrder(orderData));
+  };
+
+  const closeModal = (): void => {
+    dispatch(closeAllModals());
   };
 
   return (
@@ -44,7 +60,6 @@ export const BurgerConstructor = ({
               <DragIcon type={'primary'} />
             </div>
             <ConstructorElement
-              handleClose={handleCloseElement}
               price={ingredient.price}
               text={ingredient.name}
               thumbnail={ingredient.image}
@@ -67,7 +82,11 @@ export const BurgerConstructor = ({
           Оформить заказ
         </Button>
       </div>
-      {isModalOpen && <OrderDetails onClose={closeModal} />}
+      {isOpen && (
+        <Modal onClose={closeModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };

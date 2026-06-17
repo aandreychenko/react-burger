@@ -4,6 +4,7 @@
   left: 50%;
   box-sizing: border-box;
   width: 720px;
+  min-height: 180px;
   background-color: #1c1c21;
   border-radius: 40px;
   transform: translate(-50%, -50%);

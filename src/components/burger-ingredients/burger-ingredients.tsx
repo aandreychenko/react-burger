@@ -1,10 +1,16 @@
 import { Tab } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import IngredientDetails from '@components/ingredient-details/ingredient-details.tsx';
 import IngredientsList from '@components/ingredients-list/ingredients-list.tsx';
-import useModal from '@hooks/use-modal.ts';
+import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
+import {
+  getIngredientDetails,
+  setIngredientDetails,
+} from '@services/store/modal/slice.ts';
 import { INGREDIENT_CATEGORY } from '@utils/consts.ts';
+
+import Modal from '../modal/modal';
 
 import type { TIngredient, TIngredientCategory } from '@utils/types';
 
@@ -18,21 +24,21 @@ export const BurgerIngredients = ({
   ingredients,
 }: TBurgerIngredientsProps): React.JSX.Element => {
   const [tab, setTab] = useState<TIngredientCategory>('bun');
-  const [currentIngredient, setCurrentIngredient] = useState<TIngredient | null>(null);
+
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const listContainerRef = useRef<HTMLDivElement | null>(null);
   const isClickScrolling = useRef<boolean>(false);
-  const { isModalOpen, openModal, closeModal } = useModal();
+
+  const currentIngredient = useAppSelector(getIngredientDetails);
+  const dispatch = useAppDispatch();
 
   const handleOpenModal = (ingredient: TIngredient): void => {
-    setCurrentIngredient(ingredient);
-    openModal();
+    dispatch(setIngredientDetails(ingredient));
   };
 
-  const handleCloseModal = useCallback(() => {
-    closeModal();
-    setCurrentIngredient(null);
-  }, []);
+  const handleCloseModal = (): void => {
+    dispatch(setIngredientDetails(null));
+  };
 
   const handleScroll = (): void => {
     if (isClickScrolling.current || !listContainerRef.current) return;
@@ -119,8 +125,10 @@ export const BurgerIngredients = ({
         whenScroll={handleScroll}
         whenClick={handleOpenModal}
       />
-      {currentIngredient && isModalOpen && (
-        <IngredientDetails ingredient={currentIngredient} onClose={handleCloseModal} />
+      {currentIngredient && (
+        <Modal title="Детали ингредиента" onClose={handleCloseModal}>
+          <IngredientDetails ingredient={currentIngredient} />
+        </Modal>
       )}
     </section>
   );
