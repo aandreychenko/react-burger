@@ -1,11 +1,11 @@
-import axios from 'axios';
+import { create } from 'axios';
 
 import { BURGER_BASE_URL } from './consts';
 
 import type { IIngredientsResponse, TOrderResponse, TIngredient } from '@utils/types.ts';
 import type { AxiosError } from 'axios';
 
-const burgerApi = axios.create({
+const burgerApi = create({
   baseURL: BURGER_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
