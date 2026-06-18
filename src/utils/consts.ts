@@ -9,3 +9,5 @@ export const CATEGORY_TRANSLATE: Record<TIngredientCategory, string> = {
   main: 'Начинки',
   sauce: 'Соусы',
 };
+
+export const DRAG_TYPE_INGREDIENT = 'ingredient';

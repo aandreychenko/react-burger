@@ -11,7 +11,6 @@ import {
   getIngredientsError,
   getIngredientsLoading,
 } from '@services/store/ingredients/slice.ts';
-import { INGREDIENTS } from '@utils/ingredients.ts';
 
 import styles from './app.module.css';
 
@@ -44,7 +43,7 @@ export const App = (): React.JSX.Element => {
         return (
           <>
             <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor ingredients={INGREDIENTS} />
+            <BurgerConstructor />
           </>
         );
     }
@@ -57,5 +56,3 @@ export const App = (): React.JSX.Element => {
     </div>
   );
 };
-
-export default App;
