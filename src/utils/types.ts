@@ -20,6 +20,26 @@ type IIngredientsResponse = {
   data: TIngredient[];
 };
 
+type TOrderResponse = {
+  success: boolean;
+  name: string;
+  order: {
+    number: number;
+  };
+};
+
+type TIngredientsState = {
+  ingredients: TIngredient[];
+  loading: boolean;
+  error: unknown;
+};
+
 type TIngredientCategory = (typeof INGREDIENT_CATEGORY)[number];
 
-export type { TIngredient, IIngredientsResponse, TIngredientCategory };
+export type {
+  TIngredient,
+  TIngredientsState,
+  IIngredientsResponse,
+  TOrderResponse,
+  TIngredientCategory,
+};

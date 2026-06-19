@@ -1,43 +1,30 @@
 import { Preloader } from '@krgaa/react-developer-burger-ui-components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { AppHeader } from '@components/app-header/app-header';
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
-import { getIngredients } from '@utils/api.ts';
-import { INGREDIENTS } from '@utils/ingredients.ts';
-
-import type { TIngredient } from '@utils/types.ts';
+import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
+import { fetchIngredients } from '@services/store/ingredients/actions.ts';
+import {
+  getIngredientsError,
+  getIngredientsLoading,
+} from '@services/store/ingredients/slice.ts';
 
 import styles from './app.module.css';
 
 export const App = (): React.JSX.Element => {
-  const [ingredients, setIngredients] = useState([] as TIngredient[]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector(getIngredientsLoading);
+  const error = useAppSelector(getIngredientsError);
 
   useEffect(() => {
-    const getIngredientsList = async (): Promise<void> => {
-      try {
-        setIsLoading(true);
-        const data = await getIngredients();
-
-        setIngredients(data);
-      } catch (error) {
-        console.error(error);
-
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    void getIngredientsList();
+    void dispatch(fetchIngredients());
   }, []);
 
   const content = (): React.JSX.Element => {
     switch (true) {
-      case isError:
+      case error:
         return (
           <div className={styles.error}>
             <h1 className="text text_type_main-large mb-5">Произошла ошибка</h1>
@@ -48,13 +35,13 @@ export const App = (): React.JSX.Element => {
             </p>
           </div>
         );
-      case isLoading:
+      case loading:
         return <Preloader />;
       default:
         return (
           <>
-            <BurgerIngredients ingredients={ingredients} />
-            <BurgerConstructor ingredients={INGREDIENTS} />
+            <BurgerIngredients />
+            <BurgerConstructor />
           </>
         );
     }
@@ -67,5 +54,3 @@ export const App = (): React.JSX.Element => {
     </div>
   );
 };
-
-export default App;

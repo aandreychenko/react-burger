@@ -12,19 +12,40 @@
   overflow-y: scroll;
 }
 
-.item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dragIcon {
-  cursor: grab;
-}
-
 .footer {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   column-gap: 40px;
+}
+
+.onHover {
+  background-color: rgb(76 76 237 / 5%);
+  outline: 2px solid #4c4ced;
+  outline-offset: -4px;
+}
+
+.emptyElement {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 536px;
+  min-height: 80px;
+  padding: 16px 48px;
+  text-align: center;
+  background: var(--background-element);
+}
+
+.emptyIngredient {
+  border-radius: var(--common-border-radius-s);
+}
+
+.emptyBunTop {
+  border-radius: var(--top-constructor-item-border-radius);
+}
+
+.emptyBunBottom {
+  border-radius: var(--bottom-constructor-item-border-radius);
 }
