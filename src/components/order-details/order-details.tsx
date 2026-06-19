@@ -1,13 +1,13 @@
 import DoneIcon from '@/assets/images/done-icon.svg';
 import { Preloader } from '@krgaa/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 
+import { useAppSelector } from '@services/hooks/hooks.ts';
 import { getOrderDetails } from '@services/store/modal/slice.ts';
 
 import styles from './order-details.module.css';
 
 function OrderDetails(): React.JSX.Element {
-  const { isLoading, orderId, error } = useSelector(getOrderDetails);
+  const { isLoading, orderId, error } = useAppSelector(getOrderDetails);
 
   if (isLoading) {
     return (

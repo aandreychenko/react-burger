@@ -7,7 +7,6 @@ import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredi
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import { fetchIngredients } from '@services/store/ingredients/actions.ts';
 import {
-  getIngredients,
   getIngredientsError,
   getIngredientsLoading,
 } from '@services/store/ingredients/slice.ts';
@@ -16,7 +15,6 @@ import styles from './app.module.css';
 
 export const App = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
-  const ingredients = useAppSelector(getIngredients);
   const loading = useAppSelector(getIngredientsLoading);
   const error = useAppSelector(getIngredientsError);
 
@@ -42,7 +40,7 @@ export const App = (): React.JSX.Element => {
       default:
         return (
           <>
-            <BurgerIngredients ingredients={ingredients} />
+            <BurgerIngredients />
             <BurgerConstructor />
           </>
         );

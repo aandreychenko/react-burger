@@ -20,8 +20,8 @@
 }
 
 .onHover {
-  background-color: rgb(76 76 237 / 5%); /* Легкая подсветка фона */
-  outline: 2px solid #4c4ced; /* Фирменный фиолетовый цвет Практикума */
+  background-color: rgb(76 76 237 / 5%);
+  outline: 2px solid #4c4ced;
   outline-offset: -4px;
 }
 

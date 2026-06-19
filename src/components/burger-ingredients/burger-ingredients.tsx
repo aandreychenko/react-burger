@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import IngredientDetails from '@components/ingredient-details/ingredient-details.tsx';
 import IngredientsList from '@components/ingredients-list/ingredients-list.tsx';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
+import { getIngredients } from '@services/store/ingredients/slice.ts';
 import {
   getIngredientDetails,
   setIngredientDetails,
@@ -16,19 +17,14 @@ import type { TIngredient, TIngredientCategory } from '@utils/types';
 
 import styles from './burger-ingredients.module.css';
 
-type TBurgerIngredientsProps = {
-  ingredients: TIngredient[];
-};
-
-export const BurgerIngredients = ({
-  ingredients,
-}: TBurgerIngredientsProps): React.JSX.Element => {
+export const BurgerIngredients = (): React.JSX.Element => {
   const [tab, setTab] = useState<TIngredientCategory>('bun');
 
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const listContainerRef = useRef<HTMLDivElement | null>(null);
   const isClickScrolling = useRef<boolean>(false);
 
+  const ingredients = useAppSelector(getIngredients);
   const currentIngredient = useAppSelector(getIngredientDetails);
   const dispatch = useAppDispatch();
 

@@ -97,7 +97,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
         <ul className={`${styles.list} custom-scroll`}>
           {ingredients.map((ingredient, index) => (
             <ConstructorItem
-              key={ingredient.constructorId} // Передаем железный уникальный ID
+              key={ingredient.constructorId}
               ingredient={ingredient}
               index={index}
             />
