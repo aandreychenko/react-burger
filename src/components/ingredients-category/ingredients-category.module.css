@@ -4,3 +4,8 @@
   gap: 32px 24px;
   text-align: center;
 }
+
+.link {
+  color: unset;
+  text-decoration: none;
+}

@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { App } from '@components/app/app.tsx';
+import IngredientModal from '@components/ingredient-modal/ingredient-modal.tsx';
 import { ForgotPasswordPage } from '@pages/forgot-password/forgot-password.tsx';
 import { Home } from '@pages/home/home.tsx';
 import { LoginPage } from '@pages/login/login.tsx';
@@ -21,36 +22,38 @@ export const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true,
-        element: <Home />,
+        path: '/',
+        Component: Home,
+        children: [
+          {
+            path: 'ingredients/:id',
+            Component: IngredientModal,
+          },
+        ],
       },
       {
-        path: '/register',
-        element: <RegisterPage />,
+        path: 'register',
+        Component: RegisterPage,
       },
       {
-        path: '/login',
-        element: <LoginPage />,
+        path: 'login',
+        Component: LoginPage,
       },
       {
-        path: '/reset-password',
-        element: <ResetPasswordPage />,
+        path: 'reset-password',
+        Component: ResetPasswordPage,
       },
       {
-        path: '/forgot-passsword',
-        element: <ForgotPasswordPage />,
+        path: 'forgot-passsword',
+        Component: ForgotPasswordPage,
       },
       {
-        path: '/ingredients/:id',
-        element: <h1>IngredientDetailPage</h1>,
+        path: 'profile',
+        Component: ProfilePage,
       },
       {
-        path: '/profile',
-        element: <ProfilePage />,
-      },
-      {
-        path: '/profile-orders',
-        element: <ProfileOrderPage />,
+        path: 'profile-orders',
+        Component: ProfileOrderPage,
       },
     ],
   },

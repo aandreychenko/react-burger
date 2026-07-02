@@ -1,19 +1,13 @@
 import { Tab } from '@krgaa/react-developer-burger-ui-components';
 import { useState, useRef, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 
-import IngredientDetails from '@components/ingredient-details/ingredient-details.tsx';
 import IngredientsList from '@components/ingredients-list/ingredients-list.tsx';
-import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
+import { useAppSelector } from '@services/hooks/hooks.ts';
 import { getIngredients } from '@services/store/ingredients/slice.ts';
-import {
-  getIngredientDetails,
-  setIngredientDetails,
-} from '@services/store/modal/slice.ts';
 import { INGREDIENT_CATEGORY } from '@utils/consts.ts';
 
-import Modal from '../modal/modal';
-
-import type { TIngredient, TIngredientCategory } from '@utils/types';
+import type { TIngredientCategory } from '@utils/types';
 
 import styles from './burger-ingredients.module.css';
 
@@ -25,16 +19,6 @@ export const BurgerIngredients = (): React.JSX.Element => {
   const isClickScrolling = useRef<boolean>(false);
 
   const ingredients = useAppSelector(getIngredients);
-  const currentIngredient = useAppSelector(getIngredientDetails);
-  const dispatch = useAppDispatch();
-
-  const handleOpenModal = (ingredient: TIngredient): void => {
-    dispatch(setIngredientDetails(ingredient));
-  };
-
-  const handleCloseModal = (): void => {
-    dispatch(setIngredientDetails(null));
-  };
 
   const handleScroll = (): void => {
     if (isClickScrolling.current || !listContainerRef.current) return;
@@ -119,13 +103,8 @@ export const BurgerIngredients = (): React.JSX.Element => {
         categoryRefs={categoryRefs}
         containerRef={listContainerRef}
         whenScroll={handleScroll}
-        whenClick={handleOpenModal}
       />
-      {currentIngredient && (
-        <Modal title="Детали ингредиента" onClose={handleCloseModal}>
-          <IngredientDetails ingredient={currentIngredient} />
-        </Modal>
-      )}
+      <Outlet />
     </section>
   );
 };
