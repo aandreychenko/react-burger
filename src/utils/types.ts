@@ -1,6 +1,6 @@
 import type { INGREDIENT_CATEGORY } from '@utils/consts.ts';
 
-type TIngredient = {
+export type TIngredient = {
   _id: string;
   name: string;
   type: string;
@@ -15,12 +15,12 @@ type TIngredient = {
   __v: number;
 };
 
-type IIngredientsResponse = {
+export type IIngredientsResponse = {
   success: boolean;
   data: TIngredient[];
 };
 
-type TOrderResponse = {
+export type TOrderResponse = {
   success: boolean;
   name: string;
   order: {
@@ -28,18 +28,67 @@ type TOrderResponse = {
   };
 };
 
-type TIngredientsState = {
+export type TIngredientsState = {
   ingredients: TIngredient[];
   loading: boolean;
   error: unknown;
 };
 
-type TIngredientCategory = (typeof INGREDIENT_CATEGORY)[number];
+export type TIngredientCategory = (typeof INGREDIENT_CATEGORY)[number];
 
-export type {
-  TIngredient,
-  TIngredientsState,
-  IIngredientsResponse,
-  TOrderResponse,
-  TIngredientCategory,
+export type TUser = {
+  email: string;
+  name: string;
+};
+
+export type TUserState = {
+  user: TUser | null;
+  isLoading: boolean;
+  error: string | null;
+  registerSuccess: boolean;
+  isAuthChecked: boolean;
+};
+
+export type TRegisterFormData = {
+  email: string;
+  password: string;
+  name: string;
+};
+
+export type TLoginFormData = {
+  email: string;
+  password: string;
+};
+
+export type TRegisterResponse = {
+  success: boolean;
+  user: {
+    email: string;
+    name: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+  message?: string;
+};
+
+export type TLoginResponse = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    email: string;
+    name: string;
+  };
+  message?: string;
+};
+
+export type TRefreshTokenResponse = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type TLogoutResponse = {
+  success: boolean;
+  message: string;
 };

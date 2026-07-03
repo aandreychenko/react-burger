@@ -4,9 +4,7 @@
 }
 
 .container {
-  align-items: center;
   row-gap: 16px;
   height: 100%;
   overflow: auto;
-  text-align: center;
 }
