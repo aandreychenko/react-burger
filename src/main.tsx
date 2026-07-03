@@ -5,9 +5,11 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { App } from '@components/app/app.tsx';
 import IngredientModal from '@components/ingredient-modal/ingredient-modal.tsx';
+import { FeedPage } from '@pages/feed/feed.tsx';
 import { ForgotPasswordPage } from '@pages/forgot-password/forgot-password.tsx';
 import { Home } from '@pages/home/home.tsx';
 import { LoginPage } from '@pages/login/login.tsx';
+import { NotFoundPage } from '@pages/not-found/not-found.tsx';
 import { ProfileOrderPage } from '@pages/profile/orders/orders.tsx';
 import { ProfilePage } from '@pages/profile/profile.tsx';
 import { RegisterPage } from '@pages/register/register.tsx';
@@ -44,16 +46,29 @@ export const router = createBrowserRouter([
         Component: ResetPasswordPage,
       },
       {
-        path: 'forgot-passsword',
+        path: 'forgot-password',
         Component: ForgotPasswordPage,
       },
       {
         path: 'profile',
         Component: ProfilePage,
+        children: [
+          {
+            index: true,
+          },
+          {
+            path: 'orders',
+            Component: ProfileOrderPage,
+          },
+        ],
       },
       {
-        path: 'profile-orders',
-        Component: ProfileOrderPage,
+        path: '/feed',
+        Component: FeedPage,
+      },
+      {
+        path: '*',
+        Component: NotFoundPage,
       },
     ],
   },

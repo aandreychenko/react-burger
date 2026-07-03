@@ -8,6 +8,19 @@ body * {
   list-style-type: none;
 }
 
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+a {
+  color: var(--colors-interface-accent);
+  text-decoration: none;
+}
+
 @supports (scrollbar-color: auto) {
   .custom-scroll {
     scrollbar-color: #8585ad #2f2f37;
