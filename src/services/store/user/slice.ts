@@ -1,4 +1,4 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 import {
   registerUser,
@@ -31,12 +31,6 @@ export const userSlice = createSlice({
     },
     clearRegisterSuccess: (state) => {
       state.registerSuccess = false;
-    },
-    clearUser: (state) => {
-      state.user = null;
-    },
-    setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
-      state.isAuthChecked = action.payload;
     },
     clearForgotPasswordSuccess: (state) => {
       state.forgotPasswordSuccess = false;
@@ -173,8 +167,6 @@ export const userSlice = createSlice({
 export const {
   clearError,
   clearRegisterSuccess,
-  clearUser,
-  setIsAuthChecked,
   clearForgotPasswordSuccess,
   clearResetPasswordSuccess,
 } = userSlice.actions;
