@@ -68,18 +68,18 @@ export const ResetPasswordPage = (): React.JSX.Element => {
         <form className={`flex flex-column ${styles.form}`} onSubmit={handleSubmit}>
           <h1 className={'text text_type_main-medium'}>Восстановление пароля</h1>
           <PasswordInput
-            name="password"
-            placeholder="Введите новый пароль"
+            name={'password'}
+            placeholder={'Введите новый пароль'}
             value={form.password}
             onChange={handleChange}
           />
           <Input
-            name="token"
-            placeholder="Введите код из письма"
+            name={'token'}
+            placeholder={'Введите код из письма'}
             value={form.token}
             onChange={handleChange}
           />
-          <Button htmlType="submit" disabled={isLoading}>
+          <Button htmlType={'submit'} disabled={isLoading}>
             {isLoading ? 'Сохранение...' : 'Сохранить'}
           </Button>
           {error && (

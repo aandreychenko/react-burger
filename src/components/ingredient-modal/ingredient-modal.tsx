@@ -22,7 +22,7 @@ function IngredientModal(): React.JSX.Element | null {
   }
 
   return (
-    <Modal title="Детали ингредиента" onClose={handleCloseModal}>
+    <Modal title={'Детали ингредиента'} onClose={handleCloseModal}>
       <IngredientDetails ingredient={ingredient} />
     </Modal>
   );

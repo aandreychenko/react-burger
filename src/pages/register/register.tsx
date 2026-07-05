@@ -62,14 +62,18 @@ export const RegisterPage = (): React.JSX.Element => {
         <form className={`flex flex-column ${styles.form}`} onSubmit={handleSubmit}>
           <h1 className={'text text_type_main-medium'}>Регистрация</h1>
           <Input
-            name="name"
-            placeholder="Имя"
+            name={'name'}
+            placeholder={'Имя'}
             value={form.name}
             onChange={handleChange}
           />
-          <EmailInput name="email" value={form.email} onChange={handleChange} />
-          <PasswordInput name="password" value={form.password} onChange={handleChange} />
-          <Button htmlType="submit" disabled={isLoading}>
+          <EmailInput name={'email'} value={form.email} onChange={handleChange} />
+          <PasswordInput
+            name={'password'}
+            value={form.password}
+            onChange={handleChange}
+          />
+          <Button htmlType={'submit'} disabled={isLoading}>
             {isLoading ? 'Регистрация...' : 'Зарегистрироваться'}
           </Button>
           {error && (

@@ -110,8 +110,8 @@ export const ProfilePage = (): React.JSX.Element => {
       return (
         <form className={`flex flex-column ${styles.form}`} onSubmit={handleSave}>
           <Input
-            name="name"
-            placeholder="Имя"
+            name={'name'}
+            placeholder={'Имя'}
             icon={'EditIcon'}
             value={form.name}
             disabled={nameEditLocked}
@@ -120,28 +120,28 @@ export const ProfilePage = (): React.JSX.Element => {
             onChange={handleChange}
           />
           <EmailInput
-            name="email"
-            placeholder="Логин"
+            name={'email'}
+            placeholder={'Логин'}
             isIcon={true}
             value={form.email}
             onChange={handleChange}
           />
           <PasswordInput
-            name="password"
-            placeholder="Пароль"
+            name={'password'}
+            placeholder={'Пароль'}
             icon={'EditIcon'}
             value={form.password}
             onChange={handleChange}
           />
           {isFormChanged && (
             <div className={styles.actions}>
-              <Button htmlType="submit" type="primary" size="medium">
+              <Button htmlType={'submit'} type={'primary'} size={'medium'}>
                 Сохранить
               </Button>
               <Button
-                htmlType="button"
-                type="secondary"
-                size="medium"
+                htmlType={'button'}
+                type={'secondary'}
+                size={'medium'}
                 onClick={handleCancel}
               >
                 Отмена
@@ -161,7 +161,7 @@ export const ProfilePage = (): React.JSX.Element => {
           <ul className={`flex flex-column ${styles.menu}`}>
             <li>
               <NavLink
-                to="/profile"
+                to={'/profile'}
                 end
                 className={({ isActive }) =>
                   `text text_type_main-medium ${styles.link} ${isActive ? styles.link_active : ''}`
@@ -172,7 +172,7 @@ export const ProfilePage = (): React.JSX.Element => {
             </li>
             <li>
               <NavLink
-                to="/profile/orders"
+                to={'/profile/orders'}
                 className={({ isActive }) =>
                   `text text_type_main-medium ${styles.link} ${isActive ? styles.link_active : ''}`
                 }
@@ -183,7 +183,7 @@ export const ProfilePage = (): React.JSX.Element => {
             <li>
               <button
                 className={`text text_type_main-medium ${styles.link} ${styles.menuButton}`}
-                type="button"
+                type={'button'}
                 onClick={handleLogout}
               >
                 Выйти

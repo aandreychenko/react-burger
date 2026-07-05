@@ -54,8 +54,8 @@ export const ForgotPasswordPage = (): React.JSX.Element => {
       <div className={`flex flex-column ${styles.container}`}>
         <form className={`flex flex-column ${styles.form}`} onSubmit={handleSubmit}>
           <h1 className={'text text_type_main-medium'}>Восстановление пароля</h1>
-          <EmailInput name="email" value={email} onChange={handleChange} />
-          <Button htmlType="submit" disabled={isLoading}>
+          <EmailInput name={'email'} value={email} onChange={handleChange} />
+          <Button htmlType={'submit'} disabled={isLoading}>
             {isLoading ? 'Отправка...' : 'Восстановить'}
           </Button>
           {error && (

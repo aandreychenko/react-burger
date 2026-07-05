@@ -45,9 +45,13 @@ export const LoginPage = (): React.JSX.Element => {
       <div className={`flex flex-column ${styles.container}`}>
         <form className={`flex flex-column ${styles.form}`} onSubmit={handleSubmit}>
           <h1 className={'text text_type_main-medium'}>Вход</h1>
-          <EmailInput name="email" value={form.email} onChange={handleChange} />
-          <PasswordInput name="password" value={form.password} onChange={handleChange} />
-          <Button htmlType="submit" disabled={isLoading}>
+          <EmailInput name={'email'} value={form.email} onChange={handleChange} />
+          <PasswordInput
+            name={'password'}
+            value={form.password}
+            onChange={handleChange}
+          />
+          <Button htmlType={'submit'} disabled={isLoading}>
             {isLoading ? 'Вход...' : 'Войти'}
           </Button>
           {error && (

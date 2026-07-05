@@ -82,17 +82,17 @@ export const BurgerIngredients = (): React.JSX.Element => {
       <nav>
         <ul className={styles.menu}>
           <li>
-            <Tab value="bun" active={tab === 'bun'} onClick={handleTabChange}>
+            <Tab value={'bun'} active={tab === 'bun'} onClick={handleTabChange}>
               Булки
             </Tab>
           </li>
           <li>
-            <Tab value="main" active={tab === 'main'} onClick={handleTabChange}>
+            <Tab value={'main'} active={tab === 'main'} onClick={handleTabChange}>
               Начинки
             </Tab>
           </li>
           <li>
-            <Tab value="sauce" active={tab === 'sauce'} onClick={handleTabChange}>
+            <Tab value={'sauce'} active={tab === 'sauce'} onClick={handleTabChange}>
               Соусы
             </Tab>
           </li>
