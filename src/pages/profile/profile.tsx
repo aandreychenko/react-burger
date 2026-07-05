@@ -14,6 +14,8 @@ import { selectUser } from '@services/store/user/slice.ts';
 import styles from './profile.module.css';
 
 export const ProfilePage = (): React.JSX.Element => {
+  const [nameEditLocked, setNameEditLocked] = useState<boolean>(true);
+
   const dispatch = useAppDispatch();
   const location = useLocation();
   const user = useAppSelector(selectUser);
@@ -110,19 +112,24 @@ export const ProfilePage = (): React.JSX.Element => {
           <Input
             name="name"
             placeholder="Имя"
+            icon={'EditIcon'}
             value={form.name}
+            disabled={nameEditLocked}
+            onIconClick={() => setNameEditLocked(false)}
+            onBlur={() => setNameEditLocked(true)}
             onChange={handleChange}
-            icon="EditIcon"
           />
           <EmailInput
             name="email"
             placeholder="Логин"
+            isIcon={true}
             value={form.email}
             onChange={handleChange}
           />
           <PasswordInput
             name="password"
             placeholder="Пароль"
+            icon={'EditIcon'}
             value={form.password}
             onChange={handleChange}
           />
