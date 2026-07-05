@@ -14,6 +14,9 @@ import type {
   TLoginResponse,
   TLoginFormData,
   TRefreshTokenResponse,
+  TForgotPasswordResponse,
+  TResetPasswordFormData,
+  TResetPasswordResponse,
 } from '@utils/types.ts';
 import type { AxiosError } from 'axios';
 
@@ -234,5 +237,68 @@ export const updateUser = async (
 
     console.error(`[updateUser] Ошибка обновления пользователя: ${axiosError.message}`);
     throw error;
+  }
+};
+
+export const forgotPassword = async (
+  email: string
+): Promise<TForgotPasswordResponse> => {
+  try {
+    const { data } = await burgerApi.post<TForgotPasswordResponse>('/password-reset', {
+      email,
+    });
+
+    if (!data?.success) {
+      throw new Error(data.message || 'Ошибка восстановления пароля');
+    }
+
+    return data;
+  } catch (error) {
+    const axiosError = error as AxiosError<{ message: string }>;
+
+    if (axiosError.response?.data?.message) {
+      console.error(`[forgotPassword] Ошибка: ${axiosError.response.data.message}`);
+      throw new Error(axiosError.response.data.message);
+    }
+
+    if (error instanceof Error) {
+      console.error(`[forgotPassword] Ошибка: ${error.message}`);
+      throw error;
+    }
+
+    console.error('[forgotPassword] Неизвестная ошибка');
+    throw new Error('Не удалось отправить письмо для восстановления пароля');
+  }
+};
+
+export const resetPassword = async (
+  formData: TResetPasswordFormData
+): Promise<TResetPasswordResponse> => {
+  try {
+    const { data } = await burgerApi.post<TResetPasswordResponse>(
+      '/password-reset/reset',
+      formData
+    );
+
+    if (!data?.success) {
+      throw new Error(data.message || 'Ошибка сброса пароля');
+    }
+
+    return data;
+  } catch (error) {
+    const axiosError = error as AxiosError<{ message: string }>;
+
+    if (axiosError.response?.data?.message) {
+      console.error(`[resetPassword] Ошибка: ${axiosError.response.data.message}`);
+      throw new Error(axiosError.response.data.message);
+    }
+
+    if (error instanceof Error) {
+      console.error(`[resetPassword] Ошибка: ${error.message}`);
+      throw error;
+    }
+
+    console.error('[resetPassword] Неизвестная ошибка');
+    throw new Error('Не удалось сбросить пароль');
   }
 };

@@ -6,6 +6,8 @@ import {
   logoutUser,
   getUserData,
   updateUserData,
+  forgotPasswordUser,
+  resetPasswordUser,
 } from './actions.ts';
 
 import type { TUserState } from '@utils/types.ts';
@@ -16,6 +18,8 @@ const initialState: TUserState = {
   error: null,
   registerSuccess: false,
   isAuthChecked: false,
+  forgotPasswordSuccess: false,
+  resetPasswordSuccess: false,
 };
 
 export const userSlice = createSlice({
@@ -34,6 +38,12 @@ export const userSlice = createSlice({
     setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
       state.isAuthChecked = action.payload;
     },
+    clearForgotPasswordSuccess: (state) => {
+      state.forgotPasswordSuccess = false;
+    },
+    clearResetPasswordSuccess: (state) => {
+      state.resetPasswordSuccess = false;
+    },
   },
   selectors: {
     selectUser: (state) => state.user,
@@ -41,6 +51,8 @@ export const userSlice = createSlice({
     selectError: (state) => state.error,
     selectRegisterSuccess: (state) => state.registerSuccess,
     selectIsAuthChecked: (state) => state.isAuthChecked,
+    selectForgotPasswordSuccess: (state) => state.forgotPasswordSuccess,
+    selectResetPasswordSuccess: (state) => state.resetPasswordSuccess,
   },
   extraReducers: (builder) => {
     builder
@@ -122,12 +134,50 @@ export const userSlice = createSlice({
       .addCase(updateUserData.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message ?? 'Не удалось обновить данные';
+      })
+
+      .addCase(forgotPasswordUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.forgotPasswordSuccess = false;
+      })
+      .addCase(forgotPasswordUser.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+        state.forgotPasswordSuccess = true;
+      })
+      .addCase(forgotPasswordUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = (action.payload as string) || 'Не удалось отправить письмо';
+        state.forgotPasswordSuccess = false;
+      })
+
+      .addCase(resetPasswordUser.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+        state.resetPasswordSuccess = false;
+      })
+      .addCase(resetPasswordUser.fulfilled, (state) => {
+        state.isLoading = false;
+        state.error = null;
+        state.resetPasswordSuccess = true;
+      })
+      .addCase(resetPasswordUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = (action.payload as string) || 'Не удалось сбросить пароль';
+        state.resetPasswordSuccess = false;
       });
   },
 });
 
-export const { clearError, clearRegisterSuccess, clearUser, setIsAuthChecked } =
-  userSlice.actions;
+export const {
+  clearError,
+  clearRegisterSuccess,
+  clearUser,
+  setIsAuthChecked,
+  clearForgotPasswordSuccess,
+  clearResetPasswordSuccess,
+} = userSlice.actions;
 
 export const {
   selectUser,
@@ -135,4 +185,6 @@ export const {
   selectError,
   selectRegisterSuccess,
   selectIsAuthChecked,
+  selectForgotPasswordSuccess,
+  selectResetPasswordSuccess,
 } = userSlice.selectors;

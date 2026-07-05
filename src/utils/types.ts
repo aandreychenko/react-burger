@@ -47,6 +47,8 @@ export type TUserState = {
   error: string | null;
   registerSuccess: boolean;
   isAuthChecked: boolean;
+  forgotPasswordSuccess: boolean;
+  resetPasswordSuccess: boolean;
 };
 
 export type TRegisterFormData = {
@@ -91,4 +93,23 @@ export type TRefreshTokenResponse = {
 export type TLogoutResponse = {
   success: boolean;
   message: string;
+};
+
+export type TForgotPasswordResponse = {
+  success: boolean;
+  message: string;
+};
+
+export type TForgotPasswordFormData = {
+  email: string;
+};
+
+export type TResetPasswordResponse = {
+  success: boolean;
+  message: string;
+};
+
+export type TResetPasswordFormData = {
+  password: string;
+  token: string;
 };
