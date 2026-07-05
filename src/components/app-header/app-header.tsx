@@ -6,9 +6,14 @@ import {
 } from '@krgaa/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
 
+import { useAppSelector } from '@services/hooks/hooks.ts';
+import { selectUser } from '@services/store/user/slice.ts';
+
 import styles from './app-header.module.css';
 
 export const AppHeader = (): React.JSX.Element => {
+  const user = useAppSelector(selectUser);
+
   return (
     <header className={styles.header}>
       <nav className={`${styles.menu} p-4`}>
@@ -42,7 +47,9 @@ export const AppHeader = (): React.JSX.Element => {
           }
         >
           <ProfileIcon type={'secondary'} />
-          <p className={'text text_type_main-default ml-2'}>Личный кабинет</p>
+          <p className={'text text_type_main-default ml-2'}>
+            {user ? user.name : 'Личный кабинет'}
+          </p>
         </NavLink>
       </nav>
     </header>
