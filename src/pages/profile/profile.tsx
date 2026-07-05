@@ -174,13 +174,13 @@ export const ProfilePage = (): React.JSX.Element => {
               </NavLink>
             </li>
             <li>
-              <Button
-                htmlType="button"
+              <button
+                className={`text text_type_main-medium ${styles.link} ${styles.menuButton}`}
+                type="button"
                 onClick={handleLogout}
-                extraClass={`text text_type_main-medium ${styles.link}`}
               >
                 Выйти
-              </Button>
+              </button>
             </li>
           </ul>
           <p

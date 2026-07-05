@@ -39,6 +39,10 @@
   color: var(--text-primary-color);
 }
 
+.menuButton {
+  cursor: pointer;
+}
+
 .form {
   row-gap: 24px;
 }
