@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { App } from '@components/app/app.tsx';
 import IngredientModal from '@components/ingredient-modal/ingredient-modal.tsx';
+import { ProtectedRoute } from '@components/protected-route/protected-route.tsx';
 import { FeedPage } from '@pages/feed/feed.tsx';
 import { ForgotPasswordPage } from '@pages/forgot-password/forgot-password.tsx';
 import { Home } from '@pages/home/home.tsx';
@@ -34,24 +35,50 @@ export const router = createBrowserRouter([
         ],
       },
       {
+        path: '/feed',
+        Component: FeedPage,
+      },
+
+      {
         path: 'register',
-        Component: RegisterPage,
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <RegisterPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'login',
-        Component: LoginPage,
-      },
-      {
-        path: 'reset-password',
-        Component: ResetPasswordPage,
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <LoginPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'forgot-password',
-        Component: ForgotPasswordPage,
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <ForgotPasswordPage />
+          </ProtectedRoute>
+        ),
       },
       {
+        path: 'reset-password',
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <ResetPasswordPage />
+          </ProtectedRoute>
+        ),
+      },
+
+      {
         path: 'profile',
-        Component: ProfilePage,
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,
@@ -62,10 +89,7 @@ export const router = createBrowserRouter([
           },
         ],
       },
-      {
-        path: '/feed',
-        Component: FeedPage,
-      },
+
       {
         path: '*',
         Component: NotFoundPage,
