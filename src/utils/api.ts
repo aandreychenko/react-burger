@@ -48,9 +48,20 @@ export const getIngredients = async (): Promise<TIngredient[]> => {
 
 export const createOrder = async (ingredientsIds: string[]): Promise<number> => {
   try {
-    const { data } = await burgerApi.post<TOrderResponse>('/orders', {
-      ingredients: ingredientsIds,
-    });
+    const token = getToken();
+    if (!token) {
+      throw new Error('Токен не найден');
+    }
+
+    const { data } = await burgerApi.post<TOrderResponse>(
+      '/orders',
+      { ingredients: ingredientsIds },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
 
     if (!data?.success) {
       throw new Error('[createOrder] Поле success: false');
@@ -59,6 +70,17 @@ export const createOrder = async (ingredientsIds: string[]): Promise<number> => 
     return data.order.number;
   } catch (error) {
     const axiosError = error as AxiosError;
+
+    if (axiosError.response?.status === 401 || axiosError.response?.status === 403) {
+      try {
+        await refreshToken();
+        return await createOrder(ingredientsIds);
+      } catch (refreshError) {
+        removeTokens();
+        throw refreshError;
+      }
+    }
+
     console.error(`[createOrder] Ошибка создания заказа: ${axiosError.message}`);
     throw error;
   }
