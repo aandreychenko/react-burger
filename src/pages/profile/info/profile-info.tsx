@@ -1,0 +1,134 @@
+import {
+  Button,
+  EmailInput,
+  Input,
+  PasswordInput,
+} from '@krgaa/react-developer-burger-ui-components';
+import { useState, useEffect, useRef } from 'react';
+
+import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
+import { updateUserData } from '@services/store/user/actions.ts';
+import { selectUser } from '@services/store/user/slice.ts';
+
+import styles from './profile-info.module.css';
+
+export const ProfileInfo = (): React.JSX.Element => {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
+
+  const [nameEditLocked, setNameEditLocked] = useState<boolean>(true);
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const [isFormChanged, setIsFormChanged] = useState(false);
+
+  const initialFormRef = useRef({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const isInitializedRef = useRef(false);
+
+  useEffect(() => {
+    if (user) {
+      const userData = {
+        name: user.name || '',
+        email: user.email || '',
+        password: '',
+      };
+
+      const isUserDataChanged =
+        userData.name !== initialFormRef.current.name ||
+        userData.email !== initialFormRef.current.email;
+
+      if (isUserDataChanged || !isInitializedRef.current) {
+        setForm(userData);
+        initialFormRef.current = userData;
+        setIsFormChanged(false);
+        isInitializedRef.current = true;
+      }
+    }
+  }, [user]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const { name, value } = e.target;
+    const updatedForm = { ...form, [name]: value };
+    setForm(updatedForm);
+
+    const isChanged =
+      updatedForm.name !== initialFormRef.current.name ||
+      updatedForm.email !== initialFormRef.current.email ||
+      updatedForm.password !== initialFormRef.current.password;
+
+    setIsFormChanged(isChanged);
+  };
+
+  const handleSave = (e: React.FormEvent): void => {
+    e.preventDefault();
+
+    const updatedData: Partial<typeof form> = {};
+    if (form.name !== initialFormRef.current.name) updatedData.name = form.name;
+    if (form.email !== initialFormRef.current.email) updatedData.email = form.email;
+    if (form.password) updatedData.password = form.password;
+
+    if (Object.keys(updatedData).length > 0) {
+      void dispatch(updateUserData(updatedData));
+      initialFormRef.current = { ...form };
+      setIsFormChanged(false);
+    }
+  };
+
+  const handleCancel = (): void => {
+    setForm({ ...initialFormRef.current });
+    setIsFormChanged(false);
+  };
+
+  return (
+    <form className={`flex flex-column ${styles.form}`} onSubmit={handleSave}>
+      <Input
+        name={'name'}
+        placeholder={'Имя'}
+        icon={'EditIcon'}
+        value={form.name}
+        disabled={nameEditLocked}
+        onIconClick={() => setNameEditLocked(false)}
+        onBlur={() => setNameEditLocked(true)}
+        onChange={handleChange}
+      />
+      <EmailInput
+        name={'email'}
+        placeholder={'Логин'}
+        isIcon={true}
+        value={form.email}
+        onChange={handleChange}
+      />
+      <PasswordInput
+        name={'password'}
+        placeholder={'Пароль'}
+        icon={'EditIcon'}
+        value={form.password}
+        onChange={handleChange}
+      />
+      {isFormChanged && (
+        <div className={styles.actions}>
+          <Button htmlType={'submit'} type={'primary'} size={'medium'}>
+            Сохранить
+          </Button>
+          <Button
+            htmlType={'button'}
+            type={'secondary'}
+            size={'medium'}
+            onClick={handleCancel}
+          >
+            Отмена
+          </Button>
+        </div>
+      )}
+    </form>
+  );
+};

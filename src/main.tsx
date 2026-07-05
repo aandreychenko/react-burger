@@ -11,7 +11,8 @@ import { ForgotPasswordPage } from '@pages/forgot-password/forgot-password.tsx';
 import { Home } from '@pages/home/home.tsx';
 import { LoginPage } from '@pages/login/login.tsx';
 import { NotFoundPage } from '@pages/not-found/not-found.tsx';
-import { ProfileOrderPage } from '@pages/profile/orders/orders.tsx';
+import { ProfileInfo } from '@pages/profile/info/profile-info.tsx';
+import { ProfileOrderPage } from '@pages/profile/orders/profile-orders.tsx';
 import { ProfilePage } from '@pages/profile/profile.tsx';
 import { RegisterPage } from '@pages/register/register.tsx';
 import { ResetPasswordPage } from '@pages/reset-password/reset-password.tsx';
@@ -82,6 +83,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
+            Component: ProfileInfo,
           },
           {
             path: 'orders',

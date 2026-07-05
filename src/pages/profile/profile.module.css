@@ -43,15 +43,6 @@
   cursor: pointer;
 }
 
-.form {
-  row-gap: 24px;
-}
-
 .caption {
   opacity: 0.4;
-}
-
-.actions {
-  display: flex;
-  column-gap: 16px;
 }

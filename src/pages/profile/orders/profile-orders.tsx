@@ -1,4 +1,4 @@
-import styles from './orders.module.css';
+import styles from './profile-orders.module.css';
 
 export const ProfileOrderPage = (): React.JSX.Element => {
   return (
