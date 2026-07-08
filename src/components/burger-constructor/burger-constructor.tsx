@@ -9,6 +9,7 @@ import Price from '@components/price/price.tsx';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import {
   addIngredient,
+  clearConstructor,
   getConstructorState,
 } from '@services/store/constructor/slice.ts';
 import { createOrder } from '@services/store/modal/actions.ts';
@@ -63,6 +64,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 
   const handleCloseModal = (): void => {
     dispatch(closeAllModals());
+    dispatch(clearConstructor());
   };
 
   const constructorClassName = `

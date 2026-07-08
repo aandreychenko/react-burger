@@ -46,12 +46,16 @@ export const constructorSlice = createSlice({
         (item) => item.constructorId !== action.payload
       );
     },
+    clearConstructor: (state) => {
+      state.bun = null;
+      state.ingredients = [];
+    },
   },
   selectors: {
     getConstructorState: (state) => state,
   },
 });
 
-export const { addIngredient, moveIngredient, removeIngredient } =
+export const { addIngredient, moveIngredient, removeIngredient, clearConstructor } =
   constructorSlice.actions;
 export const { getConstructorState } = constructorSlice.selectors;
