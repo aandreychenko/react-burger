@@ -96,6 +96,8 @@ export const register = async (
       throw new Error(data.message ?? 'Ошибка регистрации');
     }
 
+    setTokens(data.accessToken, data.refreshToken);
+
     return data;
   } catch (error) {
     const axiosError = error as AxiosError<{ message: string }>;
