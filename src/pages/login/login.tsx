@@ -3,13 +3,15 @@ import {
   EmailInput,
   PasswordInput,
 } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useForm } from '@hooks/use-form.ts';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import { loginUser } from '@services/store/user/actions.ts';
 import { selectIsLoading, selectError, clearError } from '@services/store/user/slice.ts';
 
+import type { TLoginFormData } from '@utils/types.ts';
 import type React from 'react';
 
 import styles from './login.module.css';
@@ -19,7 +21,7 @@ export const LoginPage = (): React.JSX.Element => {
   const isLoading = useAppSelector(selectIsLoading);
   const error = useAppSelector(selectError);
 
-  const [form, setForm] = useState({
+  const { values, handleChange } = useForm<TLoginFormData>({
     email: '',
     password: '',
   });
@@ -30,14 +32,9 @@ export const LoginPage = (): React.JSX.Element => {
     };
   }, [dispatch]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    void dispatch(loginUser(form));
+    void dispatch(loginUser(values));
   };
 
   return (
@@ -45,10 +42,10 @@ export const LoginPage = (): React.JSX.Element => {
       <div className={`flex flex-column ${styles.container}`}>
         <form className={`flex flex-column ${styles.form}`} onSubmit={handleSubmit}>
           <h1 className={'text text_type_main-medium'}>Вход</h1>
-          <EmailInput name={'email'} value={form.email} onChange={handleChange} />
+          <EmailInput name={'email'} value={values.email} onChange={handleChange} />
           <PasswordInput
             name={'password'}
-            value={form.password}
+            value={values.password}
             onChange={handleChange}
           />
           <Button htmlType={'submit'} disabled={isLoading}>

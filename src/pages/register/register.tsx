@@ -4,9 +4,10 @@ import {
   Input,
   PasswordInput,
 } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useForm } from '@hooks/use-form.ts';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import { registerUser } from '@services/store/user/actions.ts';
 import {
@@ -17,13 +18,15 @@ import {
   clearRegisterSuccess,
 } from '@services/store/user/slice.ts';
 
+import type { TRegisterFormData } from '@utils/types.ts';
+
 import styles from './register.module.css';
 
 export const RegisterPage = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const { values, handleChange } = useForm<TRegisterFormData>({
     name: '',
     email: '',
     password: '',
@@ -46,14 +49,9 @@ export const RegisterPage = (): React.JSX.Element => {
     };
   }, [dispatch]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    void dispatch(registerUser(form));
+    void dispatch(registerUser(values));
   };
 
   return (
@@ -64,13 +62,13 @@ export const RegisterPage = (): React.JSX.Element => {
           <Input
             name={'name'}
             placeholder={'Имя'}
-            value={form.name}
+            value={values.name}
             onChange={handleChange}
           />
-          <EmailInput name={'email'} value={form.email} onChange={handleChange} />
+          <EmailInput name={'email'} value={values.email} onChange={handleChange} />
           <PasswordInput
             name={'password'}
-            value={form.password}
+            value={values.password}
             onChange={handleChange}
           />
           <Button htmlType={'submit'} disabled={isLoading}>

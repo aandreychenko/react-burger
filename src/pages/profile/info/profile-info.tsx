@@ -6,9 +6,12 @@ import {
 } from '@krgaa/react-developer-burger-ui-components';
 import { useState, useEffect, useRef } from 'react';
 
+import { useForm } from '@hooks/use-form.ts';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import { updateUserData } from '@services/store/user/actions.ts';
 import { selectUser } from '@services/store/user/slice.ts';
+
+import type { TRegisterFormData } from '@utils/types.ts';
 
 import styles from './profile-info.module.css';
 
@@ -18,7 +21,7 @@ export const ProfileInfo = (): React.JSX.Element => {
 
   const [nameEditLocked, setNameEditLocked] = useState<boolean>(true);
 
-  const [form, setForm] = useState({
+  const { values, handleChange, setValues } = useForm<TRegisterFormData>({
     name: '',
     email: '',
     password: '',
@@ -47,19 +50,19 @@ export const ProfileInfo = (): React.JSX.Element => {
         userData.email !== initialFormRef.current.email;
 
       if (isUserDataChanged || !isInitializedRef.current) {
-        setForm(userData);
+        setValues(userData);
         initialFormRef.current = userData;
         setIsFormChanged(false);
         isInitializedRef.current = true;
       }
     }
-  }, [user]);
+  }, [user, setValues]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    const updatedForm = { ...form, [name]: value };
-    setForm(updatedForm);
+    handleChange(e);
 
+    const updatedForm = { ...values, [name]: value };
     const isChanged =
       updatedForm.name !== initialFormRef.current.name ||
       updatedForm.email !== initialFormRef.current.email ||
@@ -71,20 +74,20 @@ export const ProfileInfo = (): React.JSX.Element => {
   const handleSave = (e: React.FormEvent): void => {
     e.preventDefault();
 
-    const updatedData: Partial<typeof form> = {};
-    if (form.name !== initialFormRef.current.name) updatedData.name = form.name;
-    if (form.email !== initialFormRef.current.email) updatedData.email = form.email;
-    if (form.password) updatedData.password = form.password;
+    const updatedData: Partial<typeof values> = {};
+    if (values.name !== initialFormRef.current.name) updatedData.name = values.name;
+    if (values.email !== initialFormRef.current.email) updatedData.email = values.email;
+    if (values.password) updatedData.password = values.password;
 
     if (Object.keys(updatedData).length > 0) {
       void dispatch(updateUserData(updatedData));
-      initialFormRef.current = { ...form };
+      initialFormRef.current = { ...values };
       setIsFormChanged(false);
     }
   };
 
   const handleCancel = (): void => {
-    setForm({ ...initialFormRef.current });
+    setValues({ ...initialFormRef.current });
     setIsFormChanged(false);
   };
 
@@ -94,25 +97,25 @@ export const ProfileInfo = (): React.JSX.Element => {
         name={'name'}
         placeholder={'Имя'}
         icon={'EditIcon'}
-        value={form.name}
+        value={values.name}
         disabled={nameEditLocked}
         onIconClick={() => setNameEditLocked(false)}
         onBlur={() => setNameEditLocked(true)}
-        onChange={handleChange}
+        onChange={handleFormChange}
       />
       <EmailInput
         name={'email'}
         placeholder={'Логин'}
         isIcon={true}
-        value={form.email}
-        onChange={handleChange}
+        value={values.email}
+        onChange={handleFormChange}
       />
       <PasswordInput
         name={'password'}
         placeholder={'Пароль'}
         icon={'EditIcon'}
-        value={form.password}
-        onChange={handleChange}
+        value={values.password}
+        onChange={handleFormChange}
       />
       {isFormChanged && (
         <div className={styles.actions}>

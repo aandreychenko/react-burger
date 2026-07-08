@@ -3,9 +3,10 @@ import {
   Input,
   PasswordInput,
 } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useForm } from '@hooks/use-form.ts';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import { resetPasswordUser } from '@services/store/user/actions.ts';
 import {
@@ -16,13 +17,15 @@ import {
   clearResetPasswordSuccess,
 } from '@services/store/user/slice.ts';
 
+import type { TResetPasswordFormData } from '@utils/types.ts';
+
 import styles from './reset-password.module.css';
 
 export const ResetPasswordPage = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const { values, handleChange } = useForm<TResetPasswordFormData>({
     password: '',
     token: '',
   });
@@ -52,14 +55,9 @@ export const ResetPasswordPage = (): React.JSX.Element => {
     };
   }, [dispatch]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
-
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    void dispatch(resetPasswordUser(form));
+    void dispatch(resetPasswordUser(values));
   };
 
   return (
@@ -70,13 +68,13 @@ export const ResetPasswordPage = (): React.JSX.Element => {
           <PasswordInput
             name={'password'}
             placeholder={'Введите новый пароль'}
-            value={form.password}
+            value={values.password}
             onChange={handleChange}
           />
           <Input
             name={'token'}
             placeholder={'Введите код из письма'}
-            value={form.token}
+            value={values.token}
             onChange={handleChange}
           />
           <Button htmlType={'submit'} disabled={isLoading}>

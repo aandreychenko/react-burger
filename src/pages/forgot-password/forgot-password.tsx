@@ -1,7 +1,8 @@
 import { Button, EmailInput } from '@krgaa/react-developer-burger-ui-components';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { useForm } from '@hooks/use-form.ts';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import { forgotPasswordUser } from '@services/store/user/actions.ts';
 import {
@@ -12,13 +13,17 @@ import {
   clearForgotPasswordSuccess,
 } from '@services/store/user/slice.ts';
 
+import type { TForgotPasswordFormData } from '@utils/types.ts';
+
 import styles from './forgot-password.module.css';
 
 export const ForgotPasswordPage = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
+  const { values, handleChange } = useForm<TForgotPasswordFormData>({
+    email: '',
+  });
 
   const isLoading = useAppSelector(selectIsLoading);
   const error = useAppSelector(selectError);
@@ -38,14 +43,10 @@ export const ForgotPasswordPage = (): React.JSX.Element => {
     };
   }, [dispatch]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
-  };
-
   const handleSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    if (email) {
-      void dispatch(forgotPasswordUser(email));
+    if (values.email) {
+      void dispatch(forgotPasswordUser(values.email));
     }
   };
 
@@ -54,7 +55,7 @@ export const ForgotPasswordPage = (): React.JSX.Element => {
       <div className={`flex flex-column ${styles.container}`}>
         <form className={`flex flex-column ${styles.form}`} onSubmit={handleSubmit}>
           <h1 className={'text text_type_main-medium'}>Восстановление пароля</h1>
-          <EmailInput name={'email'} value={email} onChange={handleChange} />
+          <EmailInput name={'email'} value={values.email} onChange={handleChange} />
           <Button htmlType={'submit'} disabled={isLoading}>
             {isLoading ? 'Отправка...' : 'Восстановить'}
           </Button>
