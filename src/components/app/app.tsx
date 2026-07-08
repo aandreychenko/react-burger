@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { AppHeader } from '@components/app-header/app-header';
 import { useAppDispatch } from '@services/hooks/hooks.ts';
+import { fetchIngredients } from '@services/store/ingredients/actions.ts';
 import { getUserData } from '@services/store/user/actions.ts';
 
 import styles from './app.module.css';
@@ -12,6 +13,7 @@ export const App = (): React.JSX.Element => {
 
   useEffect(() => {
     void dispatch(getUserData());
+    void dispatch(fetchIngredients());
   }, [dispatch]);
 
   return (

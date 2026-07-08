@@ -1,12 +1,10 @@
 import { Preloader } from '@krgaa/react-developer-burger-ui-components';
-import { useEffect } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import { BurgerConstructor } from '@components/burger-constructor/burger-constructor';
 import { BurgerIngredients } from '@components/burger-ingredients/burger-ingredients';
-import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
-import { fetchIngredients } from '@services/store/ingredients/actions.ts';
+import { useAppSelector } from '@services/hooks/hooks.ts';
 import {
   getIngredientsError,
   getIngredientsLoading,
@@ -15,13 +13,8 @@ import {
 import styles from './home.module.css';
 
 export const Home = (): React.JSX.Element => {
-  const dispatch = useAppDispatch();
   const loading = useAppSelector(getIngredientsLoading);
   const error = useAppSelector(getIngredientsError);
-
-  useEffect(() => {
-    void dispatch(fetchIngredients());
-  }, [dispatch]);
 
   const content = (): React.JSX.Element => {
     switch (true) {
