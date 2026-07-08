@@ -1,3 +1,4 @@
+import { Preloader } from '@krgaa/react-developer-burger-ui-components';
 import { Navigate, useLocation } from 'react-router-dom';
 
 import { useAppSelector } from '@services/hooks/hooks.ts';
@@ -25,7 +26,7 @@ export const ProtectedRoute = ({
   const location = useLocation();
 
   if (!isAuthChecked) {
-    return null;
+    return <Preloader />;
   }
 
   if (onlyUnAuth && user) {
