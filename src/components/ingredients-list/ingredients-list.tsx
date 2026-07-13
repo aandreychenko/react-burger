@@ -12,7 +12,6 @@ type TIngredientsListProps = {
   categoryRefs: RefObject<Record<string, HTMLDivElement | null>>;
   containerRef: RefObject<HTMLDivElement | null>;
   whenScroll: () => void;
-  whenClick: (ingredient: TIngredient) => void;
 };
 
 function IngredientsList({
@@ -20,7 +19,6 @@ function IngredientsList({
   categoryRefs,
   containerRef,
   whenScroll,
-  whenClick,
 }: TIngredientsListProps): React.JSX.Element {
   const ingredientsByType = useMemo(() => {
     return ingredients.reduce(
@@ -51,7 +49,6 @@ function IngredientsList({
           <IngredientsCategory
             title={CATEGORY_TRANSLATE[type as TIngredientCategory] || type}
             ingredients={list}
-            whenClick={whenClick}
           />
         </div>
       ))}

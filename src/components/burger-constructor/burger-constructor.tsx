@@ -1,6 +1,7 @@
 import { Button, ConstructorElement } from '@krgaa/react-developer-burger-ui-components';
 import { useMemo } from 'react';
 import { useDrop } from 'react-dnd';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { ConstructorItem } from '@components/constructor-item/constructor-item.tsx';
 import OrderDetails from '@components/order-details/order-details.tsx';
@@ -8,10 +9,12 @@ import Price from '@components/price/price.tsx';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import {
   addIngredient,
+  clearConstructor,
   getConstructorState,
 } from '@services/store/constructor/slice.ts';
 import { createOrder } from '@services/store/modal/actions.ts';
 import { closeAllModals, getOrderDetails } from '@services/store/modal/slice.ts';
+import { selectUser } from '@services/store/user/slice.ts';
 import { DRAG_TYPE_INGREDIENT } from '@utils/consts.ts';
 
 import Modal from '../modal/modal';
@@ -24,10 +27,12 @@ type TBunPosition = 'top' | 'bottom';
 
 export const BurgerConstructor = (): React.JSX.Element => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { isOpen } = useAppSelector(getOrderDetails);
-
   const { bun, ingredients } = useAppSelector(getConstructorState);
+  const user = useAppSelector(selectUser);
 
   const [{ isHover }, dropTargetRef] = useDrop({
     accept: DRAG_TYPE_INGREDIENT,
@@ -46,6 +51,11 @@ export const BurgerConstructor = (): React.JSX.Element => {
   }, [bun, ingredients]);
 
   const handleOpenModal = (): void => {
+    if (!user) {
+      void navigate('/login', { state: { from: location } });
+      return;
+    }
+
     if (!bun) return;
 
     const orderDataIds = [bun._id, ...ingredients.map((item) => item._id), bun._id];
@@ -54,6 +64,7 @@ export const BurgerConstructor = (): React.JSX.Element => {
 
   const handleCloseModal = (): void => {
     dispatch(closeAllModals());
+    dispatch(clearConstructor());
   };
 
   const constructorClassName = `

@@ -31,17 +31,12 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    setIngredientDetails: (state, action: PayloadAction<TIngredient | null>) => {
-      state.ingredientDetails = action.payload;
-    },
-
     closeAllModals: (state) => {
       state.ingredientDetails = null;
       state.orderDetails.isOpen = false;
     },
   },
   selectors: {
-    getIngredientDetails: (state) => state.ingredientDetails,
     getOrderDetails: (state) => state.orderDetails,
   },
   extraReducers: (builder) => {
@@ -62,5 +57,5 @@ export const modalSlice = createSlice({
   },
 });
 
-export const { setIngredientDetails, closeAllModals } = modalSlice.actions;
-export const { getIngredientDetails, getOrderDetails } = modalSlice.selectors;
+export const { closeAllModals } = modalSlice.actions;
+export const { getOrderDetails } = modalSlice.selectors;

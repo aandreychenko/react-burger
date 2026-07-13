@@ -12,10 +12,9 @@ import styles from './ingridient.module.css';
 
 export type TIngredientProps = {
   ingredient: TIngredient;
-  whenClick: (ingredient: TIngredient) => void;
 };
 
-function Ingredient({ ingredient, whenClick }: TIngredientProps): React.JSX.Element {
+function Ingredient({ ingredient }: TIngredientProps): React.JSX.Element {
   const { bun, ingredients } = useAppSelector(getConstructorState);
 
   const getCount = (): number => {
@@ -33,16 +32,8 @@ function Ingredient({ ingredient, whenClick }: TIngredientProps): React.JSX.Elem
     item: ingredient,
   });
 
-  const handleClick = function (): void {
-    whenClick(ingredient);
-  };
-
   return (
-    <div
-      ref={(node) => void dragRef(node)}
-      className={styles.card}
-      onClick={handleClick}
-    >
+    <div ref={(node) => void dragRef(node)} className={styles.card}>
       <img className={'pl-4 pr-4'} src={ingredient.image} alt={ingredient.name} />
       <Price value={ingredient.price} />
       <div className={`${styles.title} text`}>{ingredient.name}</div>
