@@ -1,6 +1,8 @@
+import type { JSX } from 'react';
+
 import styles from './profile-orders.module.css';
 
-export const ProfileOrderPage = (): React.JSX.Element => {
+export const ProfileOrderPage = (): JSX.Element => {
   return (
     <div className={`flex flex-column ${styles.page}`}>
       <div className={`flex flex-column ${styles.container}`}>

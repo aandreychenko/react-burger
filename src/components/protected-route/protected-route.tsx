@@ -5,7 +5,7 @@ import { useAppSelector } from '@services/hooks/hooks.ts';
 import { selectIsAuthChecked, selectUser } from '@services/store/user/slice.ts';
 import { isTokenExists } from '@utils/token.ts';
 
-import type React from 'react';
+import type { JSX, ReactElement } from 'react';
 
 type LocationState = {
   from?: {
@@ -15,13 +15,13 @@ type LocationState = {
 
 type ProtectedRouteProps = {
   onlyUnAuth?: boolean;
-  children: React.ReactElement;
+  children: ReactElement;
 };
 
 export const ProtectedRoute = ({
   onlyUnAuth = false,
   children,
-}: ProtectedRouteProps): React.JSX.Element | null => {
+}: ProtectedRouteProps): JSX.Element | null => {
   const user = useAppSelector(selectUser);
   const isAuthChecked = useAppSelector(selectIsAuthChecked);
   const isAuthenticated = !!user && isTokenExists();

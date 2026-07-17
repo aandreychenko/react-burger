@@ -1,9 +1,10 @@
-import { type RefObject, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import IngredientsCategory from '@components/ingredients-category/ingredients-category.tsx';
 import { CATEGORY_TRANSLATE } from '@utils/consts.ts';
 
 import type { TIngredient, TIngredientCategory } from '@utils/types.ts';
+import type { RefObject, JSX } from 'react';
 
 import styles from './ingridients-list.module.css';
 
@@ -19,7 +20,7 @@ function IngredientsList({
   categoryRefs,
   containerRef,
   whenScroll,
-}: TIngredientsListProps): React.JSX.Element {
+}: TIngredientsListProps): JSX.Element {
   const ingredientsByType = useMemo(() => {
     return ingredients.reduce(
       (acc: Record<string, TIngredient[]>, ingredient: TIngredient) => {

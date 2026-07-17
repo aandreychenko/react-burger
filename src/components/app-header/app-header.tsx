@@ -9,9 +9,11 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '@services/hooks/hooks.ts';
 import { selectUser } from '@services/store/user/slice.ts';
 
+import type { JSX } from 'react';
+
 import styles from './app-header.module.css';
 
-export const AppHeader = (): React.JSX.Element => {
+export const AppHeader = (): JSX.Element => {
   const user = useAppSelector(selectUser);
 
   return (

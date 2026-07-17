@@ -3,9 +3,11 @@ import { NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useAppDispatch } from '@services/hooks/hooks.ts';
 import { logoutUser } from '@services/store/user/actions.ts';
 
+import type { JSX } from 'react';
+
 import styles from './profile.module.css';
 
-export const ProfilePage = (): React.JSX.Element => {
+export const ProfilePage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const location = useLocation();
 

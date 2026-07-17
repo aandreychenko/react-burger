@@ -20,12 +20,13 @@ import { DRAG_TYPE_INGREDIENT } from '@utils/consts.ts';
 import Modal from '../modal/modal';
 
 import type { TIngredient } from '@utils/types';
+import type { JSX } from 'react';
 
 import styles from './burger-constructor.module.css';
 
 type TBunPosition = 'top' | 'bottom';
 
-export const BurgerConstructor = (): React.JSX.Element => {
+export const BurgerConstructor = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();

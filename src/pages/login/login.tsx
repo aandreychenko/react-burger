@@ -12,11 +12,11 @@ import { loginUser } from '@services/store/user/actions.ts';
 import { selectIsLoading, selectError, clearError } from '@services/store/user/slice.ts';
 
 import type { TLoginFormData } from '@utils/types.ts';
-import type React from 'react';
+import type { JSX, FormEvent } from 'react';
 
 import styles from './login.module.css';
 
-export const LoginPage = (): React.JSX.Element => {
+export const LoginPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectIsLoading);
   const error = useAppSelector(selectError);
@@ -32,7 +32,7 @@ export const LoginPage = (): React.JSX.Element => {
     };
   }, [dispatch]);
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     void dispatch(loginUser(values));
   };

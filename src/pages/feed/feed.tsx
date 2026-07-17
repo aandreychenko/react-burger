@@ -1,6 +1,8 @@
+import type { JSX } from 'react';
+
 import styles from './feed.module.css';
 
-export const FeedPage = (): React.JSX.Element => {
+export const FeedPage = (): JSX.Element => {
   return (
     <div className={`flex flex-column ${styles.page}`}>
       <div className={`flex flex-column ${styles.container}`}>

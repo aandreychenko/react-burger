@@ -15,6 +15,8 @@ export type TIngredient = {
   __v: number;
 };
 
+export type TConstructorItem = TIngredient & { constructorId: string };
+
 export type IIngredientsResponse = {
   success: boolean;
   data: TIngredient[];
@@ -28,28 +30,7 @@ export type TOrderResponse = {
   };
 };
 
-export type TIngredientsState = {
-  ingredients: TIngredient[];
-  loading: boolean;
-  error: unknown;
-};
-
 export type TIngredientCategory = (typeof INGREDIENT_CATEGORY)[number];
-
-export type TUser = {
-  email: string;
-  name: string;
-};
-
-export type TUserState = {
-  user: TUser | null;
-  isLoading: boolean;
-  error: string | null;
-  registerSuccess: boolean;
-  isAuthChecked: boolean;
-  forgotPasswordSuccess: boolean;
-  resetPasswordSuccess: boolean;
-};
 
 export type TRegisterFormData = {
   email: string;

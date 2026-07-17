@@ -5,16 +5,16 @@ import { createOrder } from '@services/store/modal/actions.ts';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TIngredient } from '@utils/types.ts';
 
-type TModalState = {
-  ingredientDetails: TIngredient | null;
-  orderDetails: TOrderDetailsState;
-};
-
 type TOrderDetailsState = {
   isOpen: boolean;
   isLoading: boolean;
   orderId: number | null;
   error: string | null;
+};
+
+type TModalState = {
+  ingredientDetails: TIngredient | null;
+  orderDetails: TOrderDetailsState;
 };
 
 const initialState: TModalState = {

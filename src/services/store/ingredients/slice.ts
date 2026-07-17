@@ -2,7 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { fetchIngredients } from '@services/store/ingredients/actions.ts';
 
-import type { TIngredientsState } from '@utils/types.ts';
+import type { TIngredient } from '@utils/types.ts';
+
+export type TIngredientsState = {
+  ingredients: TIngredient[];
+  loading: boolean;
+  error: unknown;
+};
 
 const initialState: TIngredientsState = {
   ingredients: [],

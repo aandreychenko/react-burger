@@ -10,7 +10,20 @@ import {
   resetPasswordUser,
 } from './actions.ts';
 
-import type { TUserState } from '@utils/types.ts';
+export type TUser = {
+  email: string;
+  name: string;
+};
+
+export type TUserState = {
+  user: TUser | null;
+  isLoading: boolean;
+  error: string | null;
+  registerSuccess: boolean;
+  isAuthChecked: boolean;
+  forgotPasswordSuccess: boolean;
+  resetPasswordSuccess: boolean;
+};
 
 const initialState: TUserState = {
   user: null,

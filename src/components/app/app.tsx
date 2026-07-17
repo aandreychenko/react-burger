@@ -6,9 +6,11 @@ import { useAppDispatch } from '@services/hooks/hooks.ts';
 import { fetchIngredients } from '@services/store/ingredients/actions.ts';
 import { getUserData } from '@services/store/user/actions.ts';
 
+import type { JSX } from 'react';
+
 import styles from './app.module.css';
 
-export const App = (): React.JSX.Element => {
+export const App = (): JSX.Element => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {

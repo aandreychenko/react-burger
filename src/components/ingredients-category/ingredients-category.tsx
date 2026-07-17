@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Ingredient from '@components/ingredient/ingredient.tsx';
 
 import type { TIngredient } from '@utils/types.ts';
+import type { JSX } from 'react';
 
 import styles from './ingredients-category.module.css';
 
@@ -14,7 +15,7 @@ type TIngredientCategoryProps = {
 function IngredientsCategory({
   title,
   ingredients,
-}: TIngredientCategoryProps): React.JSX.Element {
+}: TIngredientCategoryProps): JSX.Element {
   return (
     <div className={'pt-10'}>
       <div className={'text text_type_main-medium pb-6'}>{title}</div>

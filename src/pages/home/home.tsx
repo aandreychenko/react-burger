@@ -10,13 +10,15 @@ import {
   getIngredientsLoading,
 } from '@services/store/ingredients/slice.ts';
 
+import type { JSX } from 'react';
+
 import styles from './home.module.css';
 
-export const Home = (): React.JSX.Element => {
+export const Home = (): JSX.Element => {
   const loading = useAppSelector(getIngredientsLoading);
   const error = useAppSelector(getIngredientsError);
 
-  const content = (): React.JSX.Element => {
+  const content = (): JSX.Element => {
     switch (true) {
       case error:
         return (
