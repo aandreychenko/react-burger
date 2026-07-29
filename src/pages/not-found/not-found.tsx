@@ -1,6 +1,8 @@
+import type { JSX } from 'react';
+
 import styles from './not-found.module.css';
 
-export const NotFoundPage = (): React.JSX.Element => {
+export const NotFoundPage = (): JSX.Element => {
   return (
     <div className={`flex flex-column ${styles.page}`}>
       <div className={`flex flex-column ${styles.container}`}>

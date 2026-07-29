@@ -1,5 +1,5 @@
 import type { TIngredient } from '@utils/types.ts';
-import type React from 'react';
+import type { JSX } from 'react';
 
 import styles from './ingredient-details.module.css';
 
@@ -7,12 +7,8 @@ type IngredientDetailsProps = {
   ingredient: TIngredient;
 };
 
-function IngredientDetails({ ingredient }: IngredientDetailsProps): React.JSX.Element {
-  const getProperty = (
-    title: string,
-    measure: string,
-    value: number
-  ): React.JSX.Element => {
+function IngredientDetails({ ingredient }: IngredientDetailsProps): JSX.Element {
+  const getProperty = (title: string, measure: string, value: number): JSX.Element => {
     return (
       <div className={`${styles.spec} text text_type_main-default text_color_inactive`}>
         <div>

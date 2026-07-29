@@ -1,6 +1,6 @@
 import { create } from 'axios';
 
-import { getToken, removeTokens, setTokens } from '@utils/token.ts';
+import { getRefreshToken, getToken, removeTokens, setTokens } from '@utils/token.ts';
 
 import { BURGER_BASE_URL } from './consts';
 
@@ -116,7 +116,7 @@ export const register = async (
 
 export const refreshToken = async (): Promise<TRefreshTokenResponse> => {
   try {
-    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshToken = getRefreshToken();
     if (!refreshToken) {
       throw new Error('Refresh token не найден');
     }
@@ -163,7 +163,7 @@ export const login = async (formData: TLoginFormData): Promise<TLoginResponse> =
 
 export const logout = async (): Promise<TLogoutResponse> => {
   try {
-    const refreshToken = localStorage.getItem('refreshToken');
+    const refreshToken = getRefreshToken();
     if (!refreshToken) {
       throw new Error('Refresh token не найден');
     }

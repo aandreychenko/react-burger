@@ -4,9 +4,11 @@ import { Preloader } from '@krgaa/react-developer-burger-ui-components';
 import { useAppSelector } from '@services/hooks/hooks.ts';
 import { getOrderDetails } from '@services/store/modal/slice.ts';
 
+import type { JSX } from 'react';
+
 import styles from './order-details.module.css';
 
-function OrderDetails(): React.JSX.Element {
+function OrderDetails(): JSX.Element {
   const { isLoading, orderId, error } = useAppSelector(getOrderDetails);
 
   if (isLoading) {

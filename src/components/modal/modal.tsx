@@ -1,10 +1,10 @@
 import { CloseIcon } from '@krgaa/react-developer-burger-ui-components';
-import { type ReactNode, useEffect } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import ModalOverlay from '@components/modal-overlay/modal-overlay.tsx';
 
-import type React from 'react';
+import type { ReactNode, ReactPortal, MouseEvent } from 'react';
 
 import styles from './modal.module.css';
 
@@ -14,10 +14,10 @@ type TModalProps = {
   children: ReactNode;
 };
 
-function Modal({ title, onClose, children }: TModalProps): React.ReactPortal | null {
+function Modal({ title, onClose, children }: TModalProps): ReactPortal | null {
   const modalPortal = document.getElementById('modal');
 
-  const handleContentClick = (e: React.MouseEvent): void => {
+  const handleContentClick = (e: MouseEvent): void => {
     e.stopPropagation();
   };
 

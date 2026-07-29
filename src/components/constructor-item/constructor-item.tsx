@@ -8,7 +8,8 @@ import { useDrag, useDrop } from 'react-dnd';
 import { useAppDispatch } from '@services/hooks/hooks.ts';
 import { removeIngredient, moveIngredient } from '@services/store/constructor/slice.ts';
 
-import type { TConstructorItem } from '@services/store/constructor/slice.ts';
+import type { TConstructorItem } from '@utils/types.ts';
+import type { JSX } from 'react';
 
 import styles from './constructor-item.module.css';
 
@@ -22,7 +23,7 @@ const SORT_TYPE = 'sort_ingredient';
 export const ConstructorItem = ({
   ingredient,
   index,
-}: TConstructorItemProps): React.JSX.Element => {
+}: TConstructorItemProps): JSX.Element => {
   const dispatch = useAppDispatch();
 
   const ref = useRef<HTMLLIElement>(null);

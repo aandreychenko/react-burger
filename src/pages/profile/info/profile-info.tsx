@@ -12,10 +12,11 @@ import { updateUserData } from '@services/store/user/actions.ts';
 import { selectUser } from '@services/store/user/slice.ts';
 
 import type { TRegisterFormData } from '@utils/types.ts';
+import type { JSX, FormEvent, ChangeEvent } from 'react';
 
 import styles from './profile-info.module.css';
 
-export const ProfileInfo = (): React.JSX.Element => {
+export const ProfileInfo = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
 
@@ -58,7 +59,7 @@ export const ProfileInfo = (): React.JSX.Element => {
     }
   }, [user, setValues]);
 
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
     handleChange(e);
 
@@ -71,7 +72,7 @@ export const ProfileInfo = (): React.JSX.Element => {
     setIsFormChanged(isChanged);
   };
 
-  const handleSave = (e: React.FormEvent): void => {
+  const handleSave = (e: FormEvent): void => {
     e.preventDefault();
 
     const updatedData: Partial<typeof values> = {};

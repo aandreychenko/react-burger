@@ -14,10 +14,11 @@ import {
 } from '@services/store/user/slice.ts';
 
 import type { TForgotPasswordFormData } from '@utils/types.ts';
+import type { JSX, FormEvent } from 'react';
 
 import styles from './forgot-password.module.css';
 
-export const ForgotPasswordPage = (): React.JSX.Element => {
+export const ForgotPasswordPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +44,7 @@ export const ForgotPasswordPage = (): React.JSX.Element => {
     };
   }, [dispatch]);
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     if (values.email) {
       void dispatch(forgotPasswordUser(values.email));

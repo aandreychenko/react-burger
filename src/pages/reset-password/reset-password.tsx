@@ -18,10 +18,11 @@ import {
 } from '@services/store/user/slice.ts';
 
 import type { TResetPasswordFormData } from '@utils/types.ts';
+import type { JSX } from 'react';
 
 import styles from './reset-password.module.css';
 
-export const ResetPasswordPage = (): React.JSX.Element => {
+export const ResetPasswordPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

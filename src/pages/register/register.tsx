@@ -19,10 +19,11 @@ import {
 } from '@services/store/user/slice.ts';
 
 import type { TRegisterFormData } from '@utils/types.ts';
+import type { JSX, FormEvent } from 'react';
 
 import styles from './register.module.css';
 
-export const RegisterPage = (): React.JSX.Element => {
+export const RegisterPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -49,7 +50,7 @@ export const RegisterPage = (): React.JSX.Element => {
     };
   }, [dispatch]);
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
     void dispatch(registerUser(values));
   };

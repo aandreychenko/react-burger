@@ -5,9 +5,9 @@ import Modal from '@components/modal/modal.tsx';
 import { useAppSelector } from '@services/hooks/hooks.ts';
 import { getIngredientById } from '@services/store/ingredients/slice.ts';
 
-import type React from 'react';
+import type { JSX } from 'react';
 
-function IngredientModal(): React.JSX.Element | null {
+function IngredientModal(): JSX.Element | null {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 

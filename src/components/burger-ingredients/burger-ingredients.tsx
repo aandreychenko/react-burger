@@ -8,10 +8,11 @@ import { getIngredients } from '@services/store/ingredients/slice.ts';
 import { INGREDIENT_CATEGORY } from '@utils/consts.ts';
 
 import type { TIngredientCategory } from '@utils/types';
+import type { JSX } from 'react';
 
 import styles from './burger-ingredients.module.css';
 
-export const BurgerIngredients = (): React.JSX.Element => {
+export const BurgerIngredients = (): JSX.Element => {
   const [tab, setTab] = useState<TIngredientCategory>('bun');
 
   const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});

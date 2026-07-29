@@ -7,6 +7,7 @@ import { getConstructorState } from '@services/store/constructor/slice.ts';
 import { DRAG_TYPE_INGREDIENT } from '@utils/consts.ts';
 
 import type { TIngredient } from '@utils/types.ts';
+import type { JSX } from 'react';
 
 import styles from './ingridient.module.css';
 
@@ -14,7 +15,7 @@ export type TIngredientProps = {
   ingredient: TIngredient;
 };
 
-function Ingredient({ ingredient }: TIngredientProps): React.JSX.Element {
+function Ingredient({ ingredient }: TIngredientProps): JSX.Element {
   const { bun, ingredients } = useAppSelector(getConstructorState);
 
   const getCount = (): number => {
