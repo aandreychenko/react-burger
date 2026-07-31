@@ -1,6 +1,7 @@
 import type { TIngredientCategory } from '@utils/types.ts';
 
 export const BURGER_BASE_URL = 'https://new-stellarburgers.education-services.ru/api';
+export const BURGER_WS_BASE_URL = 'wss://new-stellarburgers.education-services.ru';
 
 export const INGREDIENT_CATEGORY = ['bun', 'main', 'sauce'] as const;
 

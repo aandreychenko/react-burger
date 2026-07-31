@@ -5,7 +5,7 @@ import { getRefreshToken, getToken, removeTokens, setTokens } from '@utils/token
 import { BURGER_BASE_URL } from './consts';
 
 import type {
-  IIngredientsResponse,
+  TIngredientsResponse,
   TOrderResponse,
   TIngredient,
   TRegisterResponse,
@@ -29,7 +29,7 @@ const burgerApi = create({
 
 export const getIngredients = async (): Promise<TIngredient[]> => {
   try {
-    const { data } = await burgerApi.get<IIngredientsResponse>('/ingredients');
+    const { data } = await burgerApi.get<TIngredientsResponse>('/ingredients');
 
     if (!data?.success) {
       throw new Error('[getIngredients] Поле success: false');

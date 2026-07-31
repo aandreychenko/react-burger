@@ -1,0 +1,64 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { TConnectPayload, TSocketResponse } from '@utils/types.ts';
+
+type TSocketState = {
+  isConnected: boolean;
+  orders: TSocketResponse | null;
+  error: string | null;
+  isLoading: boolean;
+};
+
+const initialState: TSocketState = {
+  isConnected: false,
+  orders: null,
+  error: null,
+  isLoading: false,
+};
+
+export const socketSlice = createSlice({
+  name: 'socket',
+  initialState,
+  selectors: {
+    getIsConnected: (state) => state.isConnected,
+    getOrders: (state) => state.orders,
+    getIsLoading: (state) => state.isLoading,
+    getError: (state) => state.error,
+  },
+  reducers: {
+    connect: (state, _action: PayloadAction<TConnectPayload>) => {
+      state.isLoading = true;
+      state.error = null;
+    },
+    disconnect: (state) => {
+      state.isConnected = false;
+      state.orders = null;
+      state.isLoading = false;
+    },
+    onOpen: (state) => {
+      state.isLoading = false;
+      state.isConnected = true;
+      state.error = null;
+    },
+    onMessage: (state, action: PayloadAction<TSocketResponse>) => {
+      state.orders = action.payload;
+    },
+    onError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+    onClose: (state) => {
+      state.isConnected = false;
+      state.isLoading = false;
+    },
+  },
+});
+
+export const { connect, disconnect, onOpen, onMessage, onError, onClose } =
+  socketSlice.actions;
+
+export const { getIsConnected, getOrders, getIsLoading, getError } =
+  socketSlice.selectors;
+
+export default socketSlice.reducer;

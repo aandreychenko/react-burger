@@ -1,8 +1,23 @@
-import type { JSX } from 'react';
+import { type JSX, useEffect } from 'react';
+
+import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
+import { connect, disconnect, getOrders } from '@services/store/socket/slice.ts';
+import { BURGER_WS_BASE_URL } from '@utils/consts.ts';
 
 import styles from './feed.module.css';
 
 export const FeedPage = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const orders = useAppSelector(getOrders);
+
+  useEffect(() => {
+    dispatch(connect({ url: `${BURGER_WS_BASE_URL}/orders/all` }));
+
+    return (): void => {
+      dispatch(disconnect());
+    };
+  }, []);
+
   return (
     <div className={`flex flex-column ${styles.page}`}>
       <div className={`flex flex-column ${styles.container}`}>
@@ -10,7 +25,12 @@ export const FeedPage = (): JSX.Element => {
           Лента заказов
         </h1>
         <span className={'text text_type_main-default text_color_inactive'}>
-          Раздел в работе, зайдите попозже :-)
+          total: {orders?.total}
+          total today: {orders?.totalToday}
+          orders:
+          {orders?.orders.map((order) => (
+            <div key={order._id}>{order?.createdAt}</div>
+          ))}
         </span>
       </div>
     </div>

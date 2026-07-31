@@ -17,7 +17,7 @@ export type TIngredient = {
 
 export type TConstructorItem = TIngredient & { constructorId: string };
 
-export type IIngredientsResponse = {
+export type TIngredientsResponse = {
   success: boolean;
   data: TIngredient[];
 };
@@ -93,4 +93,26 @@ export type TResetPasswordResponse = {
 export type TResetPasswordFormData = {
   password: string;
   token: string;
+};
+
+export type TOrder = {
+  _id: string;
+  status: string;
+  ingredients: string[];
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TSocketResponse = {
+  success: boolean;
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+  message?: string;
+};
+
+export type TConnectPayload = {
+  url: string;
+  withTokenRefresh?: boolean;
 };
