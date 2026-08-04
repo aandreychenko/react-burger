@@ -26,6 +26,18 @@ export const ingredientsSlice = createSlice({
     getIngredientsError: (state) => state.error,
     getIngredientById: (state, id: string | undefined) =>
       state.ingredients.find((item) => item._id === id),
+    getIngredientImagesById: (state): Record<string, string> =>
+      state.ingredients.reduce((acc, item) => {
+        return { ...acc, [item._id]: item.image };
+      }, {}),
+    getIngredientNamesById: (state): Record<string, string> =>
+      state.ingredients.reduce((acc, item) => {
+        return { ...acc, [item._id]: item.name };
+      }, {}),
+    getIngredientPricesById: (state): Record<string, number> =>
+      state.ingredients.reduce((acc, item) => {
+        return { ...acc, [item._id]: item.price };
+      }, {}),
   },
   extraReducers: (builder) => {
     builder
@@ -49,4 +61,7 @@ export const {
   getIngredientsLoading,
   getIngredientsError,
   getIngredientById,
+  getIngredientImagesById,
+  getIngredientNamesById,
+  getIngredientPricesById,
 } = ingredientsSlice.selectors;

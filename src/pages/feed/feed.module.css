@@ -4,10 +4,8 @@
 }
 
 .container {
-  align-items: center;
   row-gap: 16px;
   height: 100%;
-  margin-top: 180px;
+  margin-top: 40px;
   overflow: auto;
-  text-align: center;
 }
