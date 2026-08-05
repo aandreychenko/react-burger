@@ -7,5 +7,15 @@
   row-gap: 16px;
   height: 100%;
   margin-top: 40px;
-  overflow: auto;
+  overflow: hidden;
+}
+
+.title {
+  max-width: 100%;
+}
+
+.columns {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }

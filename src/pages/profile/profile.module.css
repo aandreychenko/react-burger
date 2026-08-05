@@ -8,9 +8,10 @@
   grid-template-columns: 320px 1fr minmax(0, 320px);
   justify-items: center;
   gap: 80px 60px;
+  box-sizing: border-box;
   height: 100%;
-  margin-top: 120px;
-  overflow: auto;
+  padding-top: 120px;
+  overflow: hidden;
 }
 
 .sidebar {

@@ -23,6 +23,8 @@ export const socketSlice = createSlice({
   selectors: {
     getIsConnected: (state) => state.isConnected,
     getOrders: (state) => state.orders,
+    getOrderById: (state, id: string | undefined) =>
+      state.orders?.orders.find((item) => item._id === id),
     getIsLoading: (state) => state.isLoading,
     getError: (state) => state.error,
   },
@@ -58,7 +60,7 @@ export const socketSlice = createSlice({
 export const { connect, disconnect, onOpen, onMessage, onError, onClose } =
   socketSlice.actions;
 
-export const { getIsConnected, getOrders, getIsLoading, getError } =
+export const { getIsConnected, getOrders, getOrderById, getIsLoading, getError } =
   socketSlice.selectors;
 
 export default socketSlice.reducer;

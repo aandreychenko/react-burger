@@ -1,5 +1,7 @@
 import { type JSX, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 
+import OrdersDashboard from '@components/orders-dashboard/orders-dashboard.tsx';
 import OrdersList from '@components/orders-list/orders-list.tsx';
 import { useAppDispatch, useAppSelector } from '@services/hooks/hooks.ts';
 import { connect, disconnect, getOrders } from '@services/store/socket/slice.ts';
@@ -23,11 +25,22 @@ export const FeedPage = (): JSX.Element => {
   return (
     <div className={`flex flex-column ${styles.page}`}>
       <div className={`flex flex-column ${styles.container}`}>
-        <h1 className={'text text_type_main-large text_color_inactive'}>
+        <h1 className={`${styles.title} text text_type_main-large mt-10 mb-5`}>
           Лента заказов
         </h1>
-        <OrdersList list={ordersList} />
+        <div
+          className={styles.columns}
+          style={{
+            display: 'flex',
+            columnGap: '60px',
+            height: '100%',
+          }}
+        >
+          <OrdersList list={ordersList} page={'feed'} />
+          <OrdersDashboard orders={orders} />
+        </div>
       </div>
+      <Outlet />
     </div>
   );
 };

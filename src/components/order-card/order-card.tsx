@@ -18,10 +18,11 @@ import styles from './order-card.module.css';
 
 type TOrderCardProps = {
   name: string;
-  status?: TOrderStatus;
+  status: TOrderStatus;
   number: number;
   date: Date;
   ingredients: string[];
+  isShowStatus?: boolean;
 };
 
 function OrderCard({
@@ -30,6 +31,7 @@ function OrderCard({
   date,
   status,
   ingredients,
+  isShowStatus = false,
 }: TOrderCardProps): JSX.Element {
   const ingredientImages = useAppSelector(getIngredientImagesById);
   const ingredientNames = useAppSelector(getIngredientNamesById);
@@ -82,7 +84,7 @@ function OrderCard({
       </div>
       <div className={styles.main}>
         <div className={'text text_type_main-medium'}>{name}</div>
-        {status && <div className={statusStyles}>{orderStatus}</div>}
+        {isShowStatus && status && <div className={statusStyles}>{orderStatus}</div>}
       </div>
       <div className={styles.footer}>
         <IngredientPreviewList list={ingredientPreviews} />
