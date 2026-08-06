@@ -1,9 +1,11 @@
 .burger_ingredients {
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
   max-width: 600px;
   height: 100%;
   min-height: 0;
+  padding-bottom: 40px;
   color: var(--text-primary-color);
   font-family: 'Jet Brains Mono', serif;
 }

@@ -6,16 +6,15 @@
 .container {
   display: grid;
   grid-template-columns: 320px 1fr minmax(0, 320px);
-  justify-items: center;
   gap: 80px 60px;
   box-sizing: border-box;
   height: 100%;
-  padding-top: 120px;
   overflow: hidden;
 }
 
 .sidebar {
   row-gap: 80px;
+  padding-top: 120px;
 }
 
 .menu {

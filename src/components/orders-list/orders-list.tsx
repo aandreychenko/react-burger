@@ -15,7 +15,7 @@ type OrdersListProps = {
 
 function OrdersList({ list, page, isShowStatus }: OrdersListProps): JSX.Element {
   return (
-    <div className={styles.list}>
+    <div className={`${styles.list} custom-scroll`}>
       {list.map((order) => (
         <Link key={order._id} className={styles.link} to={`/${page}/${order._id}`}>
           <OrderCard

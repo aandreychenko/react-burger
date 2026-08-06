@@ -1,0 +1,10 @@
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  column-gap: 16px;
+}
+
+.name {
+  flex: 1;
+}

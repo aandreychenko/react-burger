@@ -25,17 +25,8 @@ export const FeedPage = (): JSX.Element => {
   return (
     <div className={`flex flex-column ${styles.page}`}>
       <div className={`flex flex-column ${styles.container}`}>
-        <h1 className={`${styles.title} text text_type_main-large mt-10 mb-5`}>
-          Лента заказов
-        </h1>
-        <div
-          className={styles.columns}
-          style={{
-            display: 'flex',
-            columnGap: '60px',
-            height: '100%',
-          }}
-        >
+        <h1 className={`${styles.title} text text_type_main-large`}>Лента заказов</h1>
+        <div className={styles.columns}>
           <OrdersList list={ordersList} page={'feed'} />
           <OrdersDashboard orders={orders} />
         </div>

@@ -16,7 +16,7 @@ function OrdersDashboard({ orders }: OrdersDashboardProps): JSX.Element {
     .slice(0, 10);
 
   return (
-    <div className={styles.dashboard}>
+    <div className={`${styles.dashboard} custom-scroll`}>
       <div className={styles.statusContainer}>
         <div className={styles.done}>
           <div className={'text text_type_main-medium mb-6'}>Готовы:</div>

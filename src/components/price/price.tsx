@@ -7,7 +7,7 @@ import styles from './price.module.css';
 type PriceSize = 'default' | 'medium';
 
 type TPriceProps = {
-  value: number;
+  value: number | string;
   size?: PriceSize;
 };
 

@@ -4,9 +4,9 @@
 }
 
 .container {
-  row-gap: 16px;
+  row-gap: 20px;
   height: 100%;
-  margin-top: 40px;
+  padding-top: 40px;
   overflow: hidden;
 }
 
@@ -15,7 +15,10 @@
 }
 
 .columns {
+  display: flex;
   flex: 1;
+  height: 100%;
   min-height: 0;
   overflow: hidden;
+  column-gap: 60px;
 }

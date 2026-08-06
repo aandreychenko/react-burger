@@ -1,0 +1,28 @@
+.orderInfo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.list {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  row-gap: 16px;
+  min-height: 0;
+  padding-right: 8px;
+  overflow-y: auto;
+}
+
+.bottom {
+  display: flex;
+  flex-shrink: 0;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.highlight {
+  color: var(--colors-interface-success);
+}
