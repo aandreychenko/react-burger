@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { fetchIngredients } from '@services/store/ingredients/actions.ts';
 
@@ -24,20 +24,6 @@ export const ingredientsSlice = createSlice({
     getIngredients: (state) => state.ingredients,
     getIngredientsLoading: (state) => state.loading,
     getIngredientsError: (state) => state.error,
-    getIngredientById: (state, id: string | undefined) =>
-      state.ingredients.find((item) => item._id === id),
-    getIngredientImagesById: (state): Record<string, string> =>
-      state.ingredients.reduce((acc, item) => {
-        return { ...acc, [item._id]: item.image };
-      }, {}),
-    getIngredientNamesById: (state): Record<string, string> =>
-      state.ingredients.reduce((acc, item) => {
-        return { ...acc, [item._id]: item.name };
-      }, {}),
-    getIngredientPricesById: (state): Record<string, number> =>
-      state.ingredients.reduce((acc, item) => {
-        return { ...acc, [item._id]: item.price };
-      }, {}),
   },
   extraReducers: (builder) => {
     builder
@@ -56,12 +42,28 @@ export const ingredientsSlice = createSlice({
   },
 });
 
-export const {
-  getIngredients,
-  getIngredientsLoading,
-  getIngredientsError,
-  getIngredientById,
-  getIngredientImagesById,
-  getIngredientNamesById,
-  getIngredientPricesById,
-} = ingredientsSlice.selectors;
+export const { getIngredients, getIngredientsLoading, getIngredientsError } =
+  ingredientsSlice.selectors;
+
+export const getIngredientById = createSelector(
+  [getIngredients, (_, id: string | undefined): string | undefined => id],
+  (ingredients, id) => ingredients.find((item) => item._id === id)
+);
+
+export const getIngredientImagesById = createSelector([getIngredients], (ingredients) =>
+  ingredients.reduce((acc, item): Record<string, string> => {
+    return { ...acc, [item._id]: item.image };
+  }, {})
+);
+
+export const getIngredientNamesById = createSelector([getIngredients], (ingredients) =>
+  ingredients.reduce((acc, item): Record<string, string> => {
+    return { ...acc, [item._id]: item.name };
+  }, {})
+);
+
+export const getIngredientPricesById = createSelector([getIngredients], (ingredients) =>
+  ingredients.reduce((acc, item): Record<string, number> => {
+    return { ...acc, [item._id]: item.price };
+  }, {})
+);
