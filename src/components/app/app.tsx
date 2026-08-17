@@ -21,7 +21,7 @@ export const App = (): JSX.Element => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <main className={`${styles.main} pl-5 pr-5 pb-10`}>
+      <main className={`${styles.main} pl-5 pr-5`}>
         <Outlet />
       </main>
     </div>

@@ -16,13 +16,12 @@ export const ProfilePage = (): JSX.Element => {
   };
 
   const renderHint = (): string => {
-    switch (location.pathname) {
-      case '/profile':
-        return 'В этом разделе вы можете изменить свои персональные данные';
-      case '/profile/orders':
-        return 'В этом разделе вы можете просмотреть свою историю заказов';
-      default:
-        return '';
+    if (location.pathname === '/profile') {
+      return 'В этом разделе вы можете изменить свои персональные данные';
+    } else if (location.pathname.startsWith('/profile/orders')) {
+      return 'В этом разделе вы можете просмотреть свою историю заказов';
+    } else {
+      return '';
     }
   };
 

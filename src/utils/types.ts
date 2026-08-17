@@ -1,4 +1,4 @@
-import type { INGREDIENT_CATEGORY } from '@utils/consts.ts';
+import type { INGREDIENT_CATEGORY, ORDER_STATUS } from '@utils/consts.ts';
 
 export type TIngredient = {
   _id: string;
@@ -17,7 +17,17 @@ export type TIngredient = {
 
 export type TConstructorItem = TIngredient & { constructorId: string };
 
-export type IIngredientsResponse = {
+export type TIngredientPreview = Pick<TIngredient, 'name' | 'image'> & {
+  previewId: string;
+};
+
+export type TIngredientPreviewImage = {
+  id: string;
+  name: string;
+  image: string;
+};
+
+export type TIngredientsResponse = {
   success: boolean;
   data: TIngredient[];
 };
@@ -31,6 +41,7 @@ export type TOrderResponse = {
 };
 
 export type TIngredientCategory = (typeof INGREDIENT_CATEGORY)[number];
+export type TOrderStatus = (typeof ORDER_STATUS)[number];
 
 export type TRegisterFormData = {
   email: string;
@@ -93,4 +104,27 @@ export type TResetPasswordResponse = {
 export type TResetPasswordFormData = {
   password: string;
   token: string;
+};
+
+export type TOrder = {
+  _id: string;
+  status: TOrderStatus;
+  ingredients: string[];
+  number: number;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type TSocketResponse = {
+  success: boolean;
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+  message?: string;
+};
+
+export type TConnectPayload = {
+  url: string;
+  withTokenRefresh?: boolean;
 };
