@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createOrder } from '@services/store/modal/actions.ts';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { TIngredient } from '@utils/types.ts';
 
 type TOrderDetailsState = {
   isOpen: boolean;
@@ -13,12 +12,10 @@ type TOrderDetailsState = {
 };
 
 type TModalState = {
-  ingredientDetails: TIngredient | null;
   orderDetails: TOrderDetailsState;
 };
 
 const initialState: TModalState = {
-  ingredientDetails: null,
   orderDetails: {
     isOpen: false,
     isLoading: false,
@@ -32,7 +29,6 @@ export const modalSlice = createSlice({
   initialState,
   reducers: {
     closeAllModals: (state) => {
-      state.ingredientDetails = null;
       state.orderDetails.isOpen = false;
     },
   },
