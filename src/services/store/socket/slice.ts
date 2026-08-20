@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TConnectPayload, TSocketResponse } from '@utils/types.ts';
 
-type TSocketState = {
+export type TSocketState = {
   isConnected: boolean;
   orders: TSocketResponse | null;
   error: string | null;
@@ -21,12 +21,9 @@ export const socketSlice = createSlice({
   name: 'socket',
   initialState,
   selectors: {
-    getIsConnected: (state) => state.isConnected,
     getOrders: (state) => state.orders,
     getOrderById: (state, id: string | undefined) =>
       state.orders?.orders.find((item) => item._id === id),
-    getIsLoading: (state) => state.isLoading,
-    getError: (state) => state.error,
   },
   reducers: {
     connect: (state, _action: PayloadAction<TConnectPayload>) => {
@@ -37,6 +34,7 @@ export const socketSlice = createSlice({
       state.isConnected = false;
       state.orders = null;
       state.isLoading = false;
+      state.error = null;
     },
     onOpen: (state) => {
       state.isLoading = false;
@@ -60,7 +58,6 @@ export const socketSlice = createSlice({
 export const { connect, disconnect, onOpen, onMessage, onError, onClose } =
   socketSlice.actions;
 
-export const { getIsConnected, getOrders, getOrderById, getIsLoading, getError } =
-  socketSlice.selectors;
+export const { getOrders, getOrderById } = socketSlice.selectors;
 
 export default socketSlice.reducer;

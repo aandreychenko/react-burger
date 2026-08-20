@@ -25,7 +25,7 @@ export type TUserState = {
   resetPasswordSuccess: boolean;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
   isLoading: false,
   error: null,
@@ -106,6 +106,7 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.user = null;
         state.error = null;
+        state.isAuthChecked = false;
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -155,7 +156,7 @@ export const userSlice = createSlice({
       })
       .addCase(forgotPasswordUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = (action.payload as string) || 'Не удалось отправить письмо';
+        state.error = action.error?.message ?? 'Не удалось отправить письмо';
         state.forgotPasswordSuccess = false;
       })
 
@@ -171,7 +172,7 @@ export const userSlice = createSlice({
       })
       .addCase(resetPasswordUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = (action.payload as string) || 'Не удалось сбросить пароль';
+        state.error = action.error?.message ?? 'Не удалось сбросить пароль';
         state.resetPasswordSuccess = false;
       });
   },

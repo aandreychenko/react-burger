@@ -4,14 +4,14 @@ import { createOrder } from '@services/store/modal/actions.ts';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-type TOrderDetailsState = {
+export type TOrderDetailsState = {
   isOpen: boolean;
   isLoading: boolean;
   orderId: number | null;
   error: string | null;
 };
 
-type TModalState = {
+export type TModalState = {
   orderDetails: TOrderDetailsState;
 };
 
@@ -40,11 +40,13 @@ export const modalSlice = createSlice({
       .addCase(createOrder.pending, (state) => {
         state.orderDetails.isOpen = true;
         state.orderDetails.isLoading = true;
+        state.orderDetails.orderId = null;
         state.orderDetails.error = null;
       })
       .addCase(createOrder.fulfilled, (state, action: PayloadAction<number>) => {
         state.orderDetails.isLoading = false;
         state.orderDetails.orderId = action.payload;
+        state.orderDetails.error = null;
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.orderDetails.isLoading = false;
