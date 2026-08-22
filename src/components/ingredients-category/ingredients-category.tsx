@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-
-import Ingredient from '@components/ingredient/ingredient.tsx';
+import { IngredientCard } from '@components/ingredient-card/ingredient-card.tsx';
 
 import type { TIngredient } from '@utils/types.ts';
 import type { JSX } from 'react';
@@ -21,13 +19,7 @@ function IngredientsCategory({
       <div className={'text text_type_main-medium pb-6'}>{title}</div>
       <div className={`${styles.list} pl-4 pr-4`}>
         {ingredients.map((ingredient) => (
-          <Link
-            key={ingredient._id}
-            className={styles.link}
-            to={`/ingredients/${ingredient._id}`}
-          >
-            <Ingredient key={ingredient._id} ingredient={ingredient} />
-          </Link>
+          <IngredientCard key={ingredient._id} ingredient={ingredient} />
         ))}
       </div>
     </div>
