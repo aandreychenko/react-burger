@@ -100,7 +100,7 @@ const builder = (): UserStateBuilder => new UserStateBuilder();
 describe('userSlice', () => {
   describe('Начальное состояние', () => {
     it('должен возвращать начальное состояние', () => {
-      const result = userSlice.getInitialState();
+      const result = reducer(undefined, { type: 'unknown' });
 
       expect(result).toEqual(initialState);
     });

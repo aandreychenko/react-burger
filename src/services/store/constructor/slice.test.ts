@@ -91,7 +91,7 @@ const builder = (): ConstructorStateBuilder => new ConstructorStateBuilder();
 describe('constructorSlice', () => {
   describe('Начальное состояние', () => {
     it('должен возвращать начальное состояние', () => {
-      const result = constructorSlice.getInitialState();
+      const result = reducer(undefined, { type: 'unknown' });
 
       expect(result).toEqual(initialState);
     });

@@ -96,7 +96,7 @@ const builder = (): SocketStateBuilder => new SocketStateBuilder();
 describe('socketSlice', () => {
   describe('Начальное состояние', () => {
     it('должен возвращать начальное состояние', () => {
-      const result = socketSlice.getInitialState();
+      const result = reducer(undefined, { type: 'unknown' });
 
       expect(result).toEqual(initialState);
     });

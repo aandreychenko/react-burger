@@ -46,7 +46,7 @@ const builder = (): ModalStateBuilder => new ModalStateBuilder();
 describe('modalSlice', () => {
   describe('Начальное состояние', () => {
     it('должен возвращать начальное состояние', () => {
-      const result = modalSlice.getInitialState();
+      const result = reducer(undefined, { type: 'unknown' });
 
       expect(result).toEqual(initialState);
     });

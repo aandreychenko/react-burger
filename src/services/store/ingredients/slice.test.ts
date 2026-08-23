@@ -1,10 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { initialState } from '@services/store/user/slice.ts';
 import { deepClone } from '@utils/helper.ts';
 
 import { fetchIngredients } from './actions.ts';
-import { ingredientsSlice, type TIngredientsState } from './slice.ts';
+import { ingredientsSlice, initialState, type TIngredientsState } from './slice.ts';
 
 import type { TIngredient } from '@utils/types.ts';
 
@@ -73,7 +72,7 @@ const builder = (): IngredientsStateBuilder => new IngredientsStateBuilder();
 describe('ingredientsSlice', () => {
   describe('Начальное состояние', () => {
     it('должен возвращать начальное состояние', () => {
-      const result = ingredientsSlice.getInitialState();
+      const result = reducer(undefined, { type: 'unknown' });
 
       expect(result).toEqual(initialState);
     });
