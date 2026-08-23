@@ -11,6 +11,7 @@ import {
   onMessage,
   onOpen,
   socketSlice,
+  initialState,
 } from './slice.ts';
 
 import type { TSocketResponse } from '@utils/types.ts';
@@ -52,13 +53,6 @@ const ordersMock: TSocketResponse = {
 };
 
 const socketUrl = 'wss://new-stellarburgers.education-services.ru/orders/all';
-
-const initialState: TSocketState = {
-  isConnected: false,
-  orders: null,
-  error: null,
-  isLoading: false,
-};
 
 class SocketStateBuilder {
   readonly state: TSocketState;

@@ -15,7 +15,7 @@ export type TModalState = {
   orderDetails: TOrderDetailsState;
 };
 
-const initialState: TModalState = {
+export const initialState: TModalState = {
   orderDetails: {
     isOpen: false,
     isLoading: false,

@@ -10,7 +10,7 @@ export type TSocketState = {
   isLoading: boolean;
 };
 
-const initialState: TSocketState = {
+export const initialState: TSocketState = {
   isConnected: false,
   orders: null,
   error: null,

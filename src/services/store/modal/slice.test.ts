@@ -3,11 +3,9 @@ import { describe, expect, it } from 'vitest';
 import { deepClone } from '@utils/helper.ts';
 
 import { createOrder } from './actions.ts';
-import { type TModalState, closeAllModals, modalSlice } from './slice.ts';
+import { type TModalState, closeAllModals, modalSlice, initialState } from './slice.ts';
 
 const { reducer } = modalSlice;
-
-const initialState = modalSlice.getInitialState();
 
 class ModalStateBuilder {
   readonly state: TModalState;

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
+import { initialState } from '@services/store/user/slice.ts';
 import { deepClone } from '@utils/helper.ts';
 
 import { fetchIngredients } from './actions.ts';
@@ -39,8 +40,6 @@ const ingredientsMock: TIngredient[] = [
     __v: 0,
   },
 ];
-
-const initialState = ingredientsSlice.getInitialState();
 
 class IngredientsStateBuilder {
   readonly state: TIngredientsState;

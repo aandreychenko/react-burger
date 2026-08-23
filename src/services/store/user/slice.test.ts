@@ -19,6 +19,7 @@ import {
   clearRegisterSuccess,
   clearResetPasswordSuccess,
   userSlice,
+  initialState,
 } from './slice.ts';
 
 const { reducer } = userSlice;
@@ -37,16 +38,6 @@ const registerData = {
 const loginData = {
   email: 'user@ya.ru',
   password: 'password',
-};
-
-const initialState: TUserState = {
-  user: null,
-  isLoading: false,
-  error: null,
-  registerSuccess: false,
-  isAuthChecked: false,
-  forgotPasswordSuccess: false,
-  resetPasswordSuccess: false,
 };
 
 class UserStateBuilder {
