@@ -9,6 +9,7 @@ import {
   constructorSlice,
   moveIngredient,
   removeIngredient,
+  initialState,
 } from './slice.ts';
 
 import type { TIngredient } from '@utils/types.ts';
@@ -58,11 +59,6 @@ const main: TIngredient = {
   image_mobile: 'https://code.s3.yandex.net/react/code/core-mobile.png',
   image_large: 'https://code.s3.yandex.net/react/code/core-large.png',
   __v: 0,
-};
-
-const initialState: TConstructorState = {
-  bun: null,
-  ingredients: [],
 };
 
 class ConstructorStateBuilder {
