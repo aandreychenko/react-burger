@@ -1,10 +1,8 @@
 import { Counter } from '@krgaa/react-developer-burger-ui-components';
-import { useDrag } from 'react-dnd';
 
 import Price from '@components/price/price.tsx';
 import { useAppSelector } from '@services/hooks/hooks.ts';
 import { getConstructorState } from '@services/store/constructor/slice.ts';
-import { DRAG_TYPE_INGREDIENT } from '@utils/consts.ts';
 
 import type { TIngredient } from '@utils/types.ts';
 import type { JSX } from 'react';
@@ -28,13 +26,13 @@ function Ingredient({ ingredient }: TIngredientProps): JSX.Element {
 
   const count = getCount();
 
-  const [, dragRef] = useDrag({
-    type: DRAG_TYPE_INGREDIENT,
-    item: ingredient,
-  });
-
   return (
-    <div ref={(node) => void dragRef(node)} className={styles.card}>
+    <div
+      className={styles.card}
+      data-ingredient-name={ingredient.name}
+      data-ingredient-type={ingredient.type}
+      data-ingredient-id={ingredient._id}
+    >
       <img className={'pl-4 pr-4'} src={ingredient.image} alt={ingredient.name} />
       <Price value={ingredient.price} />
       <div className={`${styles.title} text`}>{ingredient.name}</div>

@@ -71,17 +71,25 @@ export const ConstructorItem = ({
       className={styles.item}
       style={{ opacity }}
       data-testid="constructor-item"
+      data-ingredient-name={ingredient.name}
     >
-      <div ref={dragIconRef} className={styles.dragIcon} style={{ cursor: 'grab' }}>
+      <div
+        ref={dragIconRef}
+        className={styles.dragIcon}
+        style={{ cursor: 'grab' }}
+        data-testid="constructor-drag-handle"
+      >
         <DragIcon type={'primary'} />
       </div>
 
-      <ConstructorElement
-        price={ingredient.price}
-        text={ingredient.name}
-        thumbnail={ingredient.image}
-        handleClose={() => dispatch(removeIngredient(ingredient.constructorId))}
-      />
+      <div data-testid="constructor-delete">
+        <ConstructorElement
+          price={ingredient.price}
+          text={ingredient.name}
+          thumbnail={ingredient.image}
+          handleClose={() => dispatch(removeIngredient(ingredient.constructorId))}
+        />
+      </div>
     </li>
   );
 };

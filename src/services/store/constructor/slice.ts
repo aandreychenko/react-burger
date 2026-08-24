@@ -3,12 +3,12 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { TIngredient, TConstructorItem } from '@utils/types.ts';
 
-type TConstructorState = {
-  bun: TIngredient | null;
+export type TConstructorState = {
+  bun: TConstructorItem | null;
   ingredients: TConstructorItem[];
 };
 
-const initialState: TConstructorState = {
+export const initialState: TConstructorState = {
   bun: null,
   ingredients: [],
 };

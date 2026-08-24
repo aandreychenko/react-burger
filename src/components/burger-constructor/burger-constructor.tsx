@@ -79,7 +79,10 @@ export const BurgerConstructor = (): JSX.Element => {
   ): React.JSX.Element => {
     const isTop = position === 'top';
     return (
-      <div className={`${isTop ? 'mb-4' : 'mt-4'} pl-8`}>
+      <div
+        className={`${isTop ? 'mb-4' : 'mt-4'} pl-8`}
+        data-testid={`constructor-bun-${isTop ? 'top' : 'bottom'}`}
+      >
         {bun ? (
           <ConstructorElement
             price={bun.price}
@@ -102,7 +105,11 @@ export const BurgerConstructor = (): JSX.Element => {
   };
 
   return (
-    <section ref={(node) => void dropTargetRef(node)} className={constructorClassName}>
+    <section
+      ref={(node) => void dropTargetRef(node)}
+      className={constructorClassName}
+      data-testid="constructor-drop-target"
+    >
       {renderBun(bun, 'top')}
 
       {ingredients.length > 0 ? (
@@ -130,6 +137,7 @@ export const BurgerConstructor = (): JSX.Element => {
       <div className={`${styles.footer} mt-10 mb-13`}>
         <Price value={totalCost} size={'medium'} />
         <Button
+          data-testid="order-button"
           onClick={handleOpenModal}
           type="primary"
           htmlType="button"

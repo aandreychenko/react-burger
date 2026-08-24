@@ -44,11 +44,12 @@ function Modal({ title, onClose, children }: TModalProps): ReactPortal | null {
           <ModalOverlay onClose={onClose} />
           <div
             className={`${styles.modal} pt-10 pr-10 pl-10`}
+            data-testid="modal"
             onClick={handleContentClick}
           >
             <div className={styles.headerContainer}>
               {title && <h1 className={'text text_type_main-large'}>{title}</h1>}
-              <div className={styles.closeButton}>
+              <div className={styles.closeButton} data-testid="modal-close">
                 <CloseIcon type={'primary'} onClick={onClose} />
               </div>
             </div>
